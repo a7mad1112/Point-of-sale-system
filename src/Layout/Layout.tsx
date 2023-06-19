@@ -1,13 +1,15 @@
 import Footer from "../Components/Footer/Footer";
-import Header from "../Components/Header/Header";
+import SideBar from "../Components/SideBar/SideBar";
 import { Routers } from "../Routes/Routers";
+import Box from "@mui/material/Box";
 
 const Layout = () => {
   return (
     <>
-      <Header />
-      <Routers />
-      <Footer />
+      <SideBar>
+        <Routers />
+      </SideBar>
+      {/* <Footer /> */}
     </>
   );
 };
