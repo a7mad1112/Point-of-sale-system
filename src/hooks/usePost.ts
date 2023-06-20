@@ -25,8 +25,10 @@ const usePost = (url: string) => {
   const [response, setResponse] = useState<PostResponse | null>(null);
 
   const postData = async (data: PostData) => {
-    setLoading(true);
     try {
+      setLoading(true);
+      setError(null);
+
       const res = await fetch(url, {
         method: "POST",
         headers: {
@@ -38,16 +40,14 @@ const usePost = (url: string) => {
       if (!res.ok) {
         throw new Error(responseData.message || "Failed to post data");
       }
+      // console.log("res ", responseData)
       setResponse(responseData);
-      setError(null);
     } catch (error) {
       setError((error as Error).message || "Error posting data");
-      setResponse(null);
     } finally {
       setLoading(false);
     }
   };
-
   return { loading, error, response, postData };
 };
 

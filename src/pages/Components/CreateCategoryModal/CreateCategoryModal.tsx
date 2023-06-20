@@ -3,7 +3,8 @@ import "./modal.css";
 import { IoCloseOutline } from "react-icons/io5";
 import * as Yup from "yup";
 import usePost from "../../../hooks/usePost";
-
+import { useDispatch } from "react-redux";
+import { categoryActions } from "../../../store/states/categoriesSlice";
 const validationSchema = Yup.object({
   category: Yup.string().required("Category is required"),
 });
@@ -16,22 +17,34 @@ type CreateCategoryModalProps = {
   setIsShow: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
+
 const CreateCategoryModal = ({ setIsShow }: CreateCategoryModalProps) => {
   const closeModal = () => setIsShow(false);
-  const postUrl = "http://localhost:1337/api/categories1";
-  const { postData } = usePost(postUrl);
+  const url = "http://localhost:1337/api/categories1";
+  const { postData } = usePost(url);
+  const dispatch = useDispatch();
   const formik = useFormik({
     initialValues: initialValues,
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
       const data = {
         data: {
           name: values.category,
         },
       };
-      // Handle form submission logic
-      postData(data);
       closeModal();
-      console.log(data);
+      postData(data);
+      // use useFetch here
+      try {
+        const res = await fetch(url);
+        if (!res.ok) {
+          throw new Error(res.statusText);
+        }
+        const data = await res.json();
+        // console.log(data.data)
+        dispatch(categoryActions.setCategories(data.data))
+      } catch (error) {
+        throw new Error("Failed to post data");
+      }
     },
     validationSchema,
   });
