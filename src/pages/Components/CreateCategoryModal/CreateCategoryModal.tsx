@@ -2,6 +2,7 @@ import { useFormik } from "formik";
 import "./modal.css";
 import { IoCloseOutline } from "react-icons/io5";
 import * as Yup from "yup";
+import usePost from "../../../hooks/usePost";
 
 const validationSchema = Yup.object({
   category: Yup.string().required("Category is required"),
@@ -17,19 +18,29 @@ type CreateCategoryModalProps = {
 
 const CreateCategoryModal = ({ setIsShow }: CreateCategoryModalProps) => {
   const closeModal = () => setIsShow(false);
-
+  const postUrl = "http://localhost:1337/api/categories1";
+  const { postData } = usePost(postUrl);
   const formik = useFormik({
     initialValues: initialValues,
     onSubmit: (values) => {
-      // Handle form submission logic here
+      const data = {
+        data: {
+          name: values.category,
+        },
+      };
+      // Handle form submission logic
+      postData(data);
       closeModal();
-      console.log(values);
+      console.log(data);
     },
     validationSchema,
   });
 
   return (
-    <div className="overlay" onClick={e => e.currentTarget === e.target && closeModal()}>
+    <div
+      className="overlay"
+      onClick={(e) => e.currentTarget === e.target && closeModal()}
+    >
       <form onSubmit={formik.handleSubmit}>
         <i className="close-btn" onClick={closeModal}>
           <IoCloseOutline />

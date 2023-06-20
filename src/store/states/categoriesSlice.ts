@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 type Category = {
   id: number;
   name: string;
+  image?: string;
 };
 type Categories = Category[];
 

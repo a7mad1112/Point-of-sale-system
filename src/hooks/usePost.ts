@@ -1,14 +1,22 @@
 import { useState } from "react";
 
 type PostData = {
-  title: string;
-  body: string;
+  data: {
+    name: string;
+  };
 };
 
 type PostResponse = {
-  id: number;
-  title: string;
-  body: string;
+  data: {
+    id: number;
+    attributes: {
+      createdAt: string;
+      updatedAt: string;
+      publishedAt: string;
+      name: string;
+    };
+  };
+  meta: Record<string, unknown>;
 };
 
 const usePost = (url: string) => {
