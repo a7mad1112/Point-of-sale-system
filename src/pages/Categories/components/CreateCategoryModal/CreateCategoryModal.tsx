@@ -17,7 +17,6 @@ type CreateCategoryModalProps = {
   setIsShow: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-
 const CreateCategoryModal = ({ setIsShow }: CreateCategoryModalProps) => {
   const closeModal = () => setIsShow(false);
   const url = "http://localhost:1337/api/categories1";
@@ -41,7 +40,7 @@ const CreateCategoryModal = ({ setIsShow }: CreateCategoryModalProps) => {
         }
         const data = await res.json();
         // console.log(data.data)
-        dispatch(categoryActions.setCategories(data.data))
+        dispatch(categoryActions.setCategories(data.data));
       } catch (error) {
         throw new Error("Failed to post data");
       }

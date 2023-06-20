@@ -1,0 +1,31 @@
+.dialog {
+  background-color: var(--gray-color);
+  padding: 30px;
+  border-radius: 5px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+  max-width: 340px;
+}
+
+.dialog .buttons {
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 25px;
+}
+
+.dialog .buttons button {
+  padding: 8px 12px;
+  border: none;
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 1.2rem;
+}
+
+.dialog .buttons button:first-of-type {
+  background-color: var(--yellow-color);
+  margin-right: 10px;
+}
+
+.dialog .buttons button:last-of-type {
+  background-color: var(--red-color);
+}
