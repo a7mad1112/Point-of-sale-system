@@ -2,9 +2,9 @@ import { useFormik } from "formik";
 import "./modal.css";
 import { IoCloseOutline } from "react-icons/io5";
 import * as Yup from "yup";
-import usePost from "../../../hooks/usePost";
+import usePost from "../../../../hooks/usePost";
 import { useDispatch } from "react-redux";
-import { categoryActions } from "../../../store/states/categoriesSlice";
+import { categoryActions } from "../../../../store/states/categoriesSlice";
 const validationSchema = Yup.object({
   category: Yup.string().required("Category is required"),
 });

@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 
 type FetchState<T> = {
-  data: T | null;
+  data: {
+    data: T | null;
+  };
   loading: boolean;
   error: string | null;
 };
@@ -12,7 +14,9 @@ type UseFetchResult<T> = {
 
 const useFetch = <T>(url: string): UseFetchResult<T> => {
   const [response, setResponse] = useState<FetchState<T>>({
-    data: null,
+    data: {
+      data: null,
+    },
     loading: true,
     error: null,
   });
@@ -32,7 +36,9 @@ const useFetch = <T>(url: string): UseFetchResult<T> => {
         });
       } catch (error) {
         setResponse({
-          data: null,
+          data: {
+            data: null,
+          },
           loading: false,
           error: (error as Error).message || "Error fetching data",
         });

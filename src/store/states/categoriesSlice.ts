@@ -1,13 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { CategoriesType } from "../../types/types";
 
-type Category = {
-  id: number;
-  name: string;
-  image?: string;
-};
-type Categories = Category[];
 
-const initialState: { categories: Categories } = {
+const initialState: { categories: CategoriesType } = {
   categories: [],
 };
 
