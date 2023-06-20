@@ -216,8 +216,7 @@ export default function SideBar({ children }: SideBarProps) {
 
         <Divider />
       </Drawer>
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-        <div style={{ padding: "30px" }}></div>
+      <Box component="main" sx={{ flexGrow: 1, px: 7, py: 6 }}>
         {children}
       </Box>
     </Box>
