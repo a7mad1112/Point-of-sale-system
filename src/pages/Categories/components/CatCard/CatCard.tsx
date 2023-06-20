@@ -1,14 +1,29 @@
 import { Category } from "../../../../types/types";
-import { Grid } from '@mui/material';
+import { Box } from "@mui/material";
+import "./cat-card.css";
+import { AiFillEdit, AiFillDelete } from "react-icons/ai";
+
 const CatCard = ({ category }: { category: Category }) => {
   return (
-    <Grid item xs={12} sm={6} md={4}>
-      <span className="point top-left"></span>
-      <span className="point top-right"></span>
-      <span className="point bottom-left"></span>
-      <span className="point bottom-right"></span>
-      {category.attributes.name}
-    </Grid>
+    <Box flex={1} minWidth={300} margin="auto" p={2} className="cat-card">
+      <span className="point top left"></span>
+      <span className="point top right"></span>
+      <span className="point bottom left"></span>
+      <span className="point bottom right"></span>
+      <p>{category.attributes.name}</p>
+      <div className="actions">
+        <span className="delete-cat">
+          <i>
+            <AiFillEdit />
+          </i>
+        </span>
+        <span className="edit-cat">
+          <i>
+            <AiFillDelete />
+          </i>
+        </span>
+      </div>
+    </Box>
   );
 };
 

@@ -74,11 +74,26 @@ const Categories = () => {
         <Box flex={1} minWidth={300} margin="auto" p={2} pb={4}>
           <SectionHeading position="center" text="Categories" />
         </Box>
-        <Grid container spacing={2}>
-          {categories?.slice(0, 3).map((cate) => (
-            <CatCard key={cate.id} category={cate} />
-          ))}
-        </Grid>
+        <Box
+          display="flex"
+          flexDirection="row"
+          flexWrap="wrap"
+          justifyContent="space-between"
+          alignItems="center"
+          gap={2}
+        >
+          {!categories?.length ? (
+            <p>
+              Oops! It seems that no categories have been added yet. Don't
+              worry, you can easily add new categories to your system to
+              organize your products more effectively. Just click the "Add
+              Category" button to get started and enhance your inventory
+              management.
+            </p>
+          ) : (
+            categories.map((cate) => <CatCard key={cate.id} category={cate} />)
+          )}
+        </Box>
       </section>
     </>
   );
