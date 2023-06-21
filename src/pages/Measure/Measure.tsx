@@ -2,12 +2,15 @@ import SectionHeading from "../Components/SectionHeading/SectionHeading";
 import CategoriesTable from "./Components/MeasuresTable/MeasuresTable";
 import useFetch from "./../../hooks/useFetch";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { measuresActions } from "../../store/states/measuresSlice";
 import Loader from "../Components/Loader/Loader";
 import { MeasuresType } from "../../types/types";
+import { Button } from "@mui/material";
+import CreateMeasureModal from "./Components/CreateMeasureModal/CreateMeasureModal";
 
 const Measure = () => {
+  const [showCreateModal, setShowCreateModal] = useState(false);
   const measures: MeasuresType = useSelector(
     (state: any) => state.measures?.measures
   );
@@ -41,6 +44,27 @@ const Measure = () => {
       ) : (
         <CategoriesTable measures={measures} />
       )}
+      <Button
+        onClick={() => setShowCreateModal(true)}
+        sx={{
+          my: 4,
+          backgroundColor: "var(--yellow-color)",
+          color: "#FFFFFF",
+          fontWeight: "bold",
+          transition: "0.3s",
+          "&:hover": {
+            opacity: 0.8,
+            backgroundColor: "var(--yellow-color)",
+            transform: "translateY(-2px)",
+          },
+        }}
+        variant="contained"
+      >
+        New Measure
+      </Button>
+      {
+        showCreateModal && <CreateMeasureModal setIsShow={setShowCreateModal} />
+      }
     </section>
   );
 };
