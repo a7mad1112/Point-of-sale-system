@@ -7,11 +7,13 @@ import useDelete from "../../../../hooks/useDelete";
 import { useState } from "react";
 import { categoryActions } from "../../../../store/states/categoriesSlice";
 import { useDispatch } from "react-redux";
+import EditCategoryModal from "../EditCategoryModal/EditCategoryModal";
 
 const CatCard = ({ category }: { category: Category }) => {
   const URL = "http://localhost:1337/api/categories1/" + category.id;
   const { deleteData } = useDelete(URL);
   const dispatch = useDispatch();
+  const [showEditModal, setShowEditModal] = useState(false);
 
   const handleDelete = async () => {
     await deleteData();
@@ -53,7 +55,7 @@ const CatCard = ({ category }: { category: Category }) => {
               <AiFillDelete />
             </i>
           </span>
-          <span className="edit-cat">
+          <span className="edit-cat" onClick={() => setShowEditModal(true)}>
             <i>
               <AiFillEdit />
             </i>
@@ -68,6 +70,10 @@ const CatCard = ({ category }: { category: Category }) => {
           handleDelete={handleDelete}
         />
       )}
+      {
+        // modal for edit
+        showEditModal && <EditCategoryModal setIsShow={setShowEditModal} URL={URL} />
+      }
     </>
   );
 };

@@ -1,17 +1,22 @@
 import { useState } from "react";
 
 type PutData = {
-  id: number;
-  title: string;
-  body: string;
+  data: {
+    name: string;
+  };
 };
 
 type PutResponse = {
-  id: number;
-  title: string;
-  body: string;
+  data: {
+    id: number;
+    attributes: {
+      createdAt: string;
+      updatedAt: string;
+      publishedAt: string;
+      name: string;
+    };
+  };
 };
-
 const usePut = (url: string) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
