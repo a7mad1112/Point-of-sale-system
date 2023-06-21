@@ -43,7 +43,7 @@ const CreateMeasureModal = ({ setIsShow }: CreateMeasureModalProps) => {
           throw new Error(res.statusText);
         }
         const data = await res.json();
-        console.log(data.data)
+        // console.log(data.data)
         dispatch(measuresActions.setMeasures(data.data));
       } catch (error) {
         throw new Error("Failed to post data");

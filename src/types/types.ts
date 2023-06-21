@@ -17,8 +17,8 @@ export type Measure = {
     base_unit: string;
     Conversion_factor: number;
     publishedAt?: string;
-    createdAt: string;
-    updatedAt: string;
+    createdAt?: string;
+    updatedAt?: string;
   };
 };
 
