@@ -9,6 +9,7 @@ import { CategoriesType } from "../../types/types";
 import CatCard from "./components/CatCard/CatCard";
 import useFetch from "../../hooks/useFetch";
 import { categoryActions } from "../../store/states/categoriesSlice";
+import Loader from "../Components/Loader/Loader";
 const Categories = () => {
   const [showCreateModal, setShowCreateModal] = useState(false);
   const categories: CategoriesType = useSelector(
@@ -19,7 +20,12 @@ const Categories = () => {
   useEffect(() => {
     dispatch(categoryActions.setCategories(response.data.data));
   }, [response, dispatch]);
-  if (response.loading) return <h1>Loading</h1>;
+
+  if (response.loading)   return (
+    <div className="loading-container">
+      <Loader />
+    </div>
+  );
 
   // if (response.data) console.log(response.data.data);
 

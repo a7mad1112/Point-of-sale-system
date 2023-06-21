@@ -1,3 +1,9 @@
 img[alt="Categories"] {
   width: 100%;
 }
+
+.loading-container {
+  position: relative;
+  width: 100%;
+  height: calc(100vh - 96px);
+}
