@@ -14,8 +14,8 @@ export type Measure = {
   id: number;
   attributes: {
     name: string;
-    base_unit?: string;
-    conversion_factor?: number;
+    base_unit: string;
+    Conversion_factor: number;
     publishedAt?: string;
     createdAt: string;
     updatedAt: string;

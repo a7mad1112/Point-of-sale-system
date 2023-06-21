@@ -29,8 +29,8 @@ const CategoriesTable: React.FC<MeasuresTableProps> = ({ measures }) => {
                   : "NULL"}
               </td>
               <td>
-                {meas.attributes.conversion_factor
-                  ? meas.attributes.conversion_factor
+                {meas.attributes.Conversion_factor
+                  ? meas.attributes.Conversion_factor
                   : "NULL"}
               </td>
               <td>
