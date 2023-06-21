@@ -1,0 +1,46 @@
+.measures-table {
+  overflow-x: auto;
+  border-radius: 4px;
+}
+
+.measures-table table {
+  user-select: none;
+  width: 100%;
+  font-size: 15px;
+  border-collapse: collapse;
+}
+
+.measures-table table tr {
+  white-space: nowrap;
+}
+
+.measures-table table thead {
+  background: var(--red-color);
+  color: #fff;
+}
+
+.measures-table table tr td,
+.measures-table table tr th {
+  padding: 19px 10px;
+  text-align: start;
+}
+
+.measures-table table tbody tr:hover {
+  background-color: #ffca4055;
+}
+
+.delete-icon,
+.edit-icon {
+  font-size: 1.1rem;
+  transition: 0.4s;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8px;
+  border: 1px solid var(--red-color);
+  border-radius: 50%;
+  color: var(--red-color);
+  cursor: pointer;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+  background-color: #fff;
+}

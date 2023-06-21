@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import SectionHeading from "../Components/SectionHeading/SectionHeading";
-import { Box, Button, Grid } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import categoriesImg from "../../assets/ProductCategoryDiagram.png";
 import "./categories.css";
 import CreateCategoryModal from "./components/CreateCategoryModal/CreateCategoryModal";
@@ -21,27 +21,28 @@ const Categories = () => {
     dispatch(categoryActions.setCategories(response.data.data));
   }, [response, dispatch]);
 
-  if (response.loading)   return (
-    <div className="loading-container">
-      <Loader />
-    </div>
-  );
+  if (response.loading)
+    return (
+      <div className="loading-container">
+        <Loader />
+      </div>
+    );
 
   // if (response.data) console.log(response.data.data);
 
   return (
     <>
       <section>
+        <SectionHeading position="left" text="Categories" />
         <Box
           display="flex"
           flexDirection="row"
           flexWrap="wrap"
           justifyContent="space-between"
-          alignItems="center"
+          alignItems="flex-start"
           gap={2}
         >
           <Box flex={1} minWidth={300} margin="auto" p={2}>
-            <SectionHeading position="left" text="Categories" />
             <p>
               The Product Categories Page showcases the existing categories in
               the system, allowing you to efficiently organize and manage your
@@ -68,7 +69,7 @@ const Categories = () => {
             </Button>
           </Box>
 
-          <Box flex={2} minWidth={300} p={2} margin="auto">
+          <Box flex={2} minWidth={300} maxWidth={400} p={2} margin="auto">
             <img src={categoriesImg} alt="Categories" />
           </Box>
         </Box>

@@ -4,6 +4,7 @@
   position: relative;
   margin-bottom: 15px;
   text-transform: uppercase;
+  padding-top: 80px;
 }
 
 @media (max-width: 768px) {
