@@ -1,6 +1,12 @@
 import { AiFillEdit, AiFillDelete } from "react-icons/ai";
 import "./measures-table.css";
-const CategoriesTable = () => {
+import { Measure } from "../../../../types/types";
+
+type MeasuresTableProps = {
+  measures: Measure[];
+};
+
+const CategoriesTable: React.FC<MeasuresTableProps> = ({ measures }) => {
   return (
     <div className="measures-table">
       <table>
@@ -14,36 +20,31 @@ const CategoriesTable = () => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>kiloGram</td>
-            <td>Gram</td>
-            <td>0.001</td>
-            <td>
-              <i className="delete-icon">
-                <AiFillDelete />
-              </i>
-            </td>
-            <td>
-              <i className="edit-icon">
-                <AiFillEdit />
-              </i>
-            </td>
-          </tr>
-          <tr>
-            <td>kiloGram</td>
-            <td>Gram</td>
-            <td>0.001</td>
-            <td>
-              <i className="delete-icon">
-                <AiFillDelete />
-              </i>
-            </td>
-            <td>
-              <i className="edit-icon">
-                <AiFillEdit />
-              </i>
-            </td>
-          </tr>
+          {measures.map((meas: Measure) => (
+            <tr key={meas.id}>
+              <td>{meas.attributes.name}</td>
+              <td>
+                {meas.attributes.base_unit
+                  ? meas.attributes.base_unit
+                  : "NULL"}
+              </td>
+              <td>
+                {meas.attributes.conversion_factor
+                  ? meas.attributes.conversion_factor
+                  : "NULL"}
+              </td>
+              <td>
+                <i className="delete-icon">
+                  <AiFillDelete />
+                </i>
+              </td>
+              <td>
+                <i className="edit-icon">
+                  <AiFillEdit />
+                </i>
+              </td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </div>
