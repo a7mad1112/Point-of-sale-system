@@ -4,7 +4,6 @@ import DeleteIcon from "../../../Components/DeleteIcon/DeleteIcon";
 
 const TableRow = ({ meas }: { meas: Measure }) => {
   const URL = "http://localhost:1337/api/unit-of-measures1";
-
   return (
     <>
       <tr key={meas.id}>

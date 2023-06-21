@@ -11,6 +11,7 @@ import CreateMeasureModal from "./Components/CreateMeasureModal/CreateMeasureMod
 
 const Measure = () => {
   const [showCreateModal, setShowCreateModal] = useState(false);
+
   const measures: MeasuresType = useSelector(
     (state: any) => state.measures?.measures
   );
