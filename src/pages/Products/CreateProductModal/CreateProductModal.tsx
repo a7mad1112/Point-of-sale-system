@@ -71,7 +71,7 @@ const CreateProductModal: React.FC<CreateProductModalProps> = ({
           method: "GET",
         });
         const data = await res.json();
-        console.log(data);
+        // console.log(data);
         dispatch(productsActions.setProducts(data.data));
       } catch (error) {
         console.error("Failed to get data:", error);

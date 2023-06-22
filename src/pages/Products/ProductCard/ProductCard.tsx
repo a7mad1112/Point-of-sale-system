@@ -1,16 +1,39 @@
 import { Product, Image } from "../../../types/types";
-import { AiFillEdit, AiFillDelete } from "react-icons/ai";
+import { AiFillEdit } from "react-icons/ai";
 
 import "./product-card.css";
+import DeleteIcon from "./../../Components/DeleteIcon/DeleteIcon";
+import useDelete from "../../../hooks/useDelete";
+import { productsActions } from "../../../store/states/productsSlice";
+import { useDispatch } from "react-redux";
 interface ProductCardProps {
   product: Product;
 }
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const prodImg: Image | null =
-    product.attributes.images.data && product.attributes.images.data[0];
+    product.attributes.images.data ? product.attributes.images.data[0] : null;
   const prodImgUrl: string = prodImg
     ? "http://localhost:1337" + prodImg.attributes.url
     : "";
+  ///////
+  const URL = "http://localhost:1337/api/products1/";
+  const { deleteData } = useDelete(URL + product.id);
+  const dispatch = useDispatch();
+  const handleDelete = async () => {
+    await deleteData();
+    // after delete the item, we need te reset our state
+    // get products
+    try {
+      const res = await fetch(URL, {
+        method: "GET",
+      });
+      const data = await res.json();
+      // console.log(data.data);
+      // dispatch(productsActions.setProducts(data.data));
+    } catch (error) {
+      console.error("Failed to get data:", error);
+    }
+  };
   return (
     <div className="card product-item">
       <div className="product-img">
@@ -30,9 +53,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         {/* delete of edit */}
         <div className="actions">
           <span className="delete-cat">
-            <i>
-              <AiFillDelete />
-            </i>
+            <DeleteIcon handleDelete={handleDelete} />
           </span>
           <span className="edit-cat">
             <i>
