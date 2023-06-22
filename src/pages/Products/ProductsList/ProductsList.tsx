@@ -6,7 +6,6 @@ const ProductsList = () => {
   const products: Products = useSelector(
     (state: any) => state.products.products
   );
-  console.log(products);
   return (
     <div className="products-container">
       {products?.map((product: Product) => (

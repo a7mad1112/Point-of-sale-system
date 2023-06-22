@@ -7,7 +7,6 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const prodImg: Image | null =
     product.attributes.images.data && product.attributes.images.data[0];
   const prodImgUrl: string = prodImg ? "http://localhost:1337" + prodImg.attributes.url : "";
-  console.log(prodImgUrl)
   return (
     <div className="product-item">
       <div className="product-img">

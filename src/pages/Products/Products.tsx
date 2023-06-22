@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import useFetch from "../../hooks/useFetch";
 import { useDispatch } from "react-redux";
 import Loader from "../Components/Loader/Loader";
@@ -8,7 +8,9 @@ import { Box } from "@mui/material";
 import { Button } from "@mui/material";
 import productsImg from "../../assets/products-img.png";
 import ProductsList from "./ProductsList/ProductsList";
+import CreateProductModal from "./CreateProductModal/CreateProductModal";
 function Products() {
+  const [showCreateModal, setShowCreateModal] = useState(false);
   const { response } = useFetch(
     "http://localhost:1337/api/products1?populate=*"
   );
@@ -45,7 +47,7 @@ function Products() {
               creating new products.
             </p>
             <Button
-              // onClick={() => setShowCreateModal(true)}
+              onClick={() => setShowCreateModal(true)}
               sx={{
                 my: 4,
                 backgroundColor: "var(--yellow-color)",
@@ -62,6 +64,9 @@ function Products() {
             >
               Create Category
             </Button>
+            {showCreateModal && (
+              <CreateProductModal setIsShow={setShowCreateModal} />
+            )}
           </Box>
 
           <Box flex={2} minWidth={300} maxWidth={400} p={2} margin="auto">

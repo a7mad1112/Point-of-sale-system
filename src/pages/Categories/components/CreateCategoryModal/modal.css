@@ -11,7 +11,8 @@
   font-weight: bold;
   margin-bottom: 5px;
 }
-.form-group input{
+.form-group input,
+.form-group select {
   width: 100%;
   padding: 8px 10px;
   border: none;
@@ -21,12 +22,12 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  font-size: 18px;
+  font-size: 15px;
 }
 
 form {
   background-color: var(--gray-color);
-  width: 350px;
+  width: 450px;
   padding: 25px;
   position: fixed;
   left: 50%;
