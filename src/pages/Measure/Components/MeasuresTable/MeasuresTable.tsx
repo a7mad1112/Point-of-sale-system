@@ -1,13 +1,18 @@
 import "./measures-table.css";
 import { Measure } from "../../../../types/types";
 import TableRow from "./TableRow";
+import { useState } from "react";
+import EditMeasureModal from "../EditMeasureModal/EditMeasureModal";
 
 type MeasuresTableProps = {
   measures: Measure[];
 };
 
-const CategoriesTable: React.FC<MeasuresTableProps> = ({ measures }) => {
-
+const MeasuresTable: React.FC<MeasuresTableProps> = ({ measures }) => {
+  const [editModal, setEditModal] = useState({
+    isShow: false,
+    selectedMeasure: measures[0]
+  });
   return (
     <div className="measures-table">
       <table>
@@ -22,12 +27,13 @@ const CategoriesTable: React.FC<MeasuresTableProps> = ({ measures }) => {
         </thead>
         <tbody>
           {measures.map((meas: Measure) => (
-            <TableRow key={meas.id} meas={meas}/>
+            <TableRow key={meas.id} meas={meas} setEditModal={setEditModal} />
           ))}
         </tbody>
       </table>
+      {editModal.isShow && <EditMeasureModal measure={editModal.selectedMeasure} setEditModal={setEditModal} />}
     </div>
   );
 };
 
-export default CategoriesTable;
+export default MeasuresTable;

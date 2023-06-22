@@ -1,5 +1,5 @@
 import SectionHeading from "../Components/SectionHeading/SectionHeading";
-import CategoriesTable from "./Components/MeasuresTable/MeasuresTable";
+import MeasuresTable from "./Components/MeasuresTable/MeasuresTable";
 import useFetch from "./../../hooks/useFetch";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
@@ -43,7 +43,7 @@ const Measure = () => {
           get started and enhance your inventory management.
         </p>
       ) : (
-        <CategoriesTable measures={measures} />
+        <MeasuresTable measures={measures} />
       )}
       <Button
         onClick={() => setShowCreateModal(true)}

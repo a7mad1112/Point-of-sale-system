@@ -4,8 +4,18 @@ import DeleteIcon from "../../../Components/DeleteIcon/DeleteIcon";
 import useDelete from "../../../../hooks/useDelete";
 import { measuresActions } from "../../../../store/states/measuresSlice";
 import { useDispatch } from "react-redux";
-
-const TableRow = ({ meas }: { meas: Measure }) => {
+const TableRow = ({
+  meas,
+  setEditModal,
+}: {
+  meas: Measure;
+  setEditModal: React.Dispatch<
+    React.SetStateAction<{
+      isShow: boolean;
+      selectedMeasure: Measure;
+    }>
+  >;
+}) => {
   const URL = "http://localhost:1337/api/unit-of-measures1";
   const { deleteData } = useDelete(URL + "/" + meas.id);
   const dispatch = useDispatch();
@@ -34,7 +44,12 @@ const TableRow = ({ meas }: { meas: Measure }) => {
           <DeleteIcon handleDelete={handleDelete} />
         </td>
         <td>
-          <i className="edit-icon">
+          <i
+            className="edit-icon"
+            onClick={() =>
+              setEditModal({ isShow: true, selectedMeasure: meas })
+            }
+          >
             <AiFillEdit />
           </i>
         </td>
