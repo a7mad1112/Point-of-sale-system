@@ -43,7 +43,7 @@ const CatCard = ({ category }: { category: Category }) => {
   };
   return (
     <>
-      <Box flex={1} minWidth={300} margin="auto" p={2} className="cat-card">
+      <Box flex={1} minWidth={300} margin="auto" p={2} className="card cat-card">
         <span className="point top left"></span>
         <span className="point top right"></span>
         <span className="point bottom left"></span>

@@ -46,7 +46,7 @@
   right: 15px;
 }
 
-.cat-card .actions {
+.actions {
   position: absolute;
   bottom: -50px;
   left: 50%;
@@ -56,7 +56,7 @@
   gap: 11px;
 }
 
-.cat-card .actions i {
+.actions i {
   font-size: 1.1rem;
   transition: 0.4s;
   display: inline-flex;
@@ -68,13 +68,16 @@
   color: var(--red-color);
   cursor: pointer;
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  background-color: #fff;
 }
 
 
-.cat-card:hover .actions i {
-  transform: translateY(-65px);
+.card:hover .actions i {
+  transform: translateY(-75px);
+  opacity: 1;
 }
 
-.cat-card:hover .actions .edit-cat i{
+.card:hover .actions .edit-cat i{
   transition-delay: 0.1s;
 }
