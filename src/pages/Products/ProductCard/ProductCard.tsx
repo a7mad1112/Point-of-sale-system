@@ -7,9 +7,21 @@ interface ProductCardProps {
   product: Product;
   setSelectedProduct: React.Dispatch<React.SetStateAction<Product | null>>;
   setShowEditModal: React.Dispatch<React.SetStateAction<boolean>>;
-
+  setDeleteId: React.Dispatch<React.SetStateAction<number | null>>;
+  setDialog: React.Dispatch<
+    React.SetStateAction<{
+      loading: boolean;
+      msg: string;
+    }>
+  >;
 }
-const ProductCard: React.FC<ProductCardProps> = ({ product, setSelectedProduct, setShowEditModal }) => {
+const ProductCard: React.FC<ProductCardProps> = ({
+  product,
+  setSelectedProduct,
+  setShowEditModal,
+  setDeleteId,
+  setDialog,
+}) => {
   const prodImg: Image | null = product.attributes.images.data
     ? product.attributes.images.data[0]
     : null;
@@ -17,7 +29,6 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, setSelectedProduct, 
     ? "http://localhost:1337" + prodImg.attributes.url
     : "";
   ///////
-
 
   return (
     <div className="card product-item">
@@ -37,15 +48,24 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, setSelectedProduct, 
         </div>
         {/* delete of edit */}
         <div className="actions">
-          <span className="delete-cat">
+          <span
+            className="delete-cat"
+            onClick={() => {
+              setDeleteId(product.id);
+              setDialog((prev) => ({ ...prev, loading: true }));
+            }}
+          >
             <i className="delete-icon">
               <AiFillDelete />
             </i>
           </span>
-          <span className="edit-cat" onClick={() => {
-            setShowEditModal(true);
-            setSelectedProduct(product)
-          }}>
+          <span
+            className="edit-cat"
+            onClick={() => {
+              setShowEditModal(true);
+              setSelectedProduct(product);
+            }}
+          >
             <i>
               <AiFillEdit />
             </i>
