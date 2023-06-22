@@ -3,13 +3,13 @@ import { AiFillEdit } from "react-icons/ai";
 import { AiFillDelete } from "react-icons/ai";
 
 import "./product-card.css";
-import useDelete from "../../../hooks/useDelete";
-import { productsActions } from "../../../store/states/productsSlice";
-import { useDispatch } from "react-redux";
 interface ProductCardProps {
   product: Product;
+  setSelectedProduct: React.Dispatch<React.SetStateAction<Product | null>>;
+  setShowEditModal: React.Dispatch<React.SetStateAction<boolean>>;
+
 }
-const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+const ProductCard: React.FC<ProductCardProps> = ({ product, setSelectedProduct, setShowEditModal }) => {
   const prodImg: Image | null = product.attributes.images.data
     ? product.attributes.images.data[0]
     : null;
@@ -17,24 +17,8 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
     ? "http://localhost:1337" + prodImg.attributes.url
     : "";
   ///////
-  const URL = "http://localhost:1337/api/products1/";
-  const { deleteData } = useDelete(URL + product.id);
-  const dispatch = useDispatch();
-  const handleDelete = async () => {
-    await deleteData();
-    // after delete the item, we need te reset our state
-    // get products
-    try {
-      const res = await fetch(URL, {
-        method: "GET",
-      });
-      const data = await res.json();
-      // console.log(data.data);
-      // dispatch(productsActions.setProducts(data.data));
-    } catch (error) {
-      console.error("Failed to get data:", error);
-    }
-  };
+
+
   return (
     <div className="card product-item">
       <div className="product-img">
@@ -58,7 +42,10 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
               <AiFillDelete />
             </i>
           </span>
-          <span className="edit-cat">
+          <span className="edit-cat" onClick={() => {
+            setShowEditModal(true);
+            setSelectedProduct(product)
+          }}>
             <i>
               <AiFillEdit />
             </i>
