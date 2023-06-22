@@ -47,7 +47,7 @@ export interface Product {
   };
 }
 
-interface Image {
+export interface Image {
   id: number;
   attributes: {
     name: string;
