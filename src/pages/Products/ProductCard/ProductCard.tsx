@@ -1,8 +1,8 @@
 import { Product, Image } from "../../../types/types";
 import { AiFillEdit } from "react-icons/ai";
+import { AiFillDelete } from "react-icons/ai";
 
 import "./product-card.css";
-import DeleteIcon from "./../../Components/DeleteIcon/DeleteIcon";
 import useDelete from "../../../hooks/useDelete";
 import { productsActions } from "../../../store/states/productsSlice";
 import { useDispatch } from "react-redux";
@@ -10,8 +10,9 @@ interface ProductCardProps {
   product: Product;
 }
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
-  const prodImg: Image | null =
-    product.attributes.images.data ? product.attributes.images.data[0] : null;
+  const prodImg: Image | null = product.attributes.images.data
+    ? product.attributes.images.data[0]
+    : null;
   const prodImgUrl: string = prodImg
     ? "http://localhost:1337" + prodImg.attributes.url
     : "";
@@ -53,7 +54,9 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         {/* delete of edit */}
         <div className="actions">
           <span className="delete-cat">
-            <DeleteIcon handleDelete={handleDelete} />
+            <i className="delete-icon">
+              <AiFillDelete />
+            </i>
           </span>
           <span className="edit-cat">
             <i>
