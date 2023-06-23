@@ -85,3 +85,11 @@ interface ImageFormat {
   size: number;
   url: string;
 }
+
+export interface CartType {
+  name: string;
+  desc?: string;
+  completed: boolean;
+  products: Products;
+}
+export type CartsType = CartType[];

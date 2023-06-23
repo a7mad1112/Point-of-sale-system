@@ -43,7 +43,7 @@ function Products() {
               }}
               variant="contained"
             >
-              Create Category
+              New Product
             </Button>
             {showCreateModal && (
               <CreateProductModal setIsShow={setShowCreateModal} />

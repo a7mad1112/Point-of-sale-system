@@ -49,7 +49,7 @@ const Categories = () => {
               }}
               variant="contained"
             >
-              Create Category
+              New Category
             </Button>
           </Box>
 
