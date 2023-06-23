@@ -1,34 +1,18 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import SectionHeading from "../Components/SectionHeading/SectionHeading";
 import { Box, Button } from "@mui/material";
 import categoriesImg from "../../assets/ProductCategoryDiagram.png";
 import "./categories.css";
 import CreateCategoryModal from "./components/CreateCategoryModal/CreateCategoryModal";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { CategoriesType } from "../../types/types";
 import CatCard from "./components/CatCard/CatCard";
-import useFetch from "../../hooks/useFetch";
-import { categoryActions } from "../../store/states/categoriesSlice";
-import Loader from "../Components/Loader/Loader";
 const Categories = () => {
   const [showCreateModal, setShowCreateModal] = useState(false);
   const categories: CategoriesType = useSelector(
     (state: any) => state.categories.categories
   );
-  const { response } = useFetch("http://localhost:1337/api/categories1");
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(categoryActions.setCategories(response.data.data));
-  }, [response, dispatch]);
 
-  if (response.loading)
-    return (
-      <div className="loading-container">
-        <Loader />
-      </div>
-    );
-
-  // if (response.data) console.log(response.data.data);
 
   return (
     <>

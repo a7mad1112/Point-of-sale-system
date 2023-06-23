@@ -1,10 +1,7 @@
 import SectionHeading from "../Components/SectionHeading/SectionHeading";
 import MeasuresTable from "./Components/MeasuresTable/MeasuresTable";
-import useFetch from "./../../hooks/useFetch";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
-import { measuresActions } from "../../store/states/measuresSlice";
-import Loader from "../Components/Loader/Loader";
+import { useSelector } from "react-redux";
+import { useState } from "react";
 import { MeasuresType } from "../../types/types";
 import { Button } from "@mui/material";
 import CreateMeasureModal from "./Components/CreateMeasureModal/CreateMeasureModal";
@@ -15,23 +12,6 @@ const Measure = () => {
   const measures: MeasuresType = useSelector(
     (state: any) => state.measures?.measures
   );
-  const URL = "http://localhost:1337/api/unit-of-measures1";
-  const { response } = useFetch(URL);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (response.data) {
-      dispatch(measuresActions.setMeasures(response.data.data));
-    }
-  }, [response, dispatch]);
-
-  if (response.loading)
-    return (
-      <div className="loading-container">
-        <Loader />
-      </div>
-    );
-
   return (
     <section>
       <SectionHeading position="left" text="Measures" />

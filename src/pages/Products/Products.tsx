@@ -11,21 +11,6 @@ import ProductsList from "./ProductsList/ProductsList";
 import CreateProductModal from "./CreateProductModal/CreateProductModal";
 function Products() {
   const [showCreateModal, setShowCreateModal] = useState(false);
-  const { response } = useFetch(
-    "http://localhost:1337/api/products1?populate=*"
-  );
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(productsActions.setProducts(response.data.data));
-    // console.log(response.data.data)
-  }, [response, dispatch]);
-
-  if (response.loading)
-    return (
-      <div className="loading-container">
-        <Loader />
-      </div>
-    );
 
   return (
     <>
