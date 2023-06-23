@@ -1,8 +1,78 @@
-
+import { Box, Button } from "@mui/material";
+import SectionHeading from "../Components/SectionHeading/SectionHeading";
+import cashierImg from "../../assets/Cashier.png";
 function Home() {
   return (
-    <div>Home</div>
-  )
+    <section>
+      <SectionHeading position="left" text="Cart Management" />
+      <Box
+        display="flex"
+        flexDirection="row"
+        flexWrap="wrap"
+        justifyContent="space-between"
+        alignItems="flex-start"
+        gap={2}
+      >
+        <Box flex={1} minWidth={300} margin="auto" p={2}>
+          <article>
+            <p>
+              As a cashier, you have the ability to create and manage multiple
+              carts, providing you with a flexible and efficient checkout
+              process. Here are the key features and actions available to you:
+            </p>
+            <ol>
+              <li>
+                Create Carts: Initiate new carts for different customers or
+                transactions, each with a unique identifier. This allows you to
+                handle multiple transactions simultaneously.
+              </li>
+              <li>
+                Edit Carts: Modify the contents of each cart as needed. Add or
+                remove products, adjust quantities, and update cart details to
+                accurately reflect the customer's purchase.
+              </li>
+              <li>
+                Delete Carts: Remove unnecessary or abandoned carts from the
+                system to keep your workspace organized and focused on active
+                transactions.
+              </li>
+            </ol>
+
+            <p>
+              By leveraging these cart management capabilities, you can
+              streamline your point-of-sale operations, provide personalized
+              service to customers, and ensure smooth and accurate checkouts.
+            </p>
+          </article>
+          <Button
+            // onClick={() => setShowCreateModal(true)}
+            sx={{
+              my: 4,
+              backgroundColor: "var(--yellow-color)",
+              color: "#FFFFFF",
+              fontWeight: "bold",
+              transition: "0.3s",
+              "&:hover": {
+                opacity: 0.8,
+                backgroundColor: "var(--yellow-color)",
+                transform: "translateY(-2px)",
+              },
+            }}
+            variant="contained"
+          >
+            Create Category
+          </Button>
+        </Box>
+
+        <Box flex={2} minWidth={300} maxWidth={400} p={2} margin="auto">
+          <img style={{ width: "100%" }} src={cashierImg} alt="cashier-img" />
+        </Box>
+      </Box>
+      {/* {showCreateModal && (
+        <CreateCategoryModal setIsShow={setShowCreateModal} />
+      )} */}
+    </section>
+  );
 }
 
-export default Home
+export default Home;

@@ -1,8 +1,4 @@
-import { useEffect, useState } from "react";
-import useFetch from "../../hooks/useFetch";
-import { useDispatch } from "react-redux";
-import Loader from "../Components/Loader/Loader";
-import { productsActions } from "../../store/states/productsSlice";
+import { useState } from "react";
 import SectionHeading from "../Components/SectionHeading/SectionHeading";
 import { Box } from "@mui/material";
 import { Button } from "@mui/material";

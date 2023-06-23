@@ -53,6 +53,7 @@ section {
 
 p {
   color: var(--black-color, #000);
+  line-height: 1.7;
 }
 
 
