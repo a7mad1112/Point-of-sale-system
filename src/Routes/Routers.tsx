@@ -11,6 +11,7 @@ import { measuresActions } from "../store/states/measuresSlice";
 import Loader from "../pages/Components/Loader/Loader";
 import { categoryActions } from "../store/states/categoriesSlice";
 import { productsActions } from "../store/states/productsSlice";
+import { cartsActions } from "../store/states/cartSlice";
 export const Routers = () => {
   // fetch data[categories, measures, products]
   const dispatch = useDispatch();
@@ -40,7 +41,21 @@ export const Routers = () => {
     dispatch(productsActions.setProducts(productsRes.data.data));
   }, [productsRes, dispatch]);
 
-  if (measuresRes.loading || categoriesRes.loading || productsRes.loading)
+  // fetch carts
+  const { response: cartsRes } = useFetch(
+    "http://localhost:1337/api/carts1?populate=*"
+  );
+  useEffect(() => {
+    dispatch(cartsActions.setCarts(cartsRes.data.data));
+  }, [cartsRes, dispatch]);
+
+  const loading = [
+    measuresRes.loading,
+    categoriesRes.loading,
+    productsRes.loading,
+    cartsRes.loading,
+  ];
+  if (loading.some((l) => l === true))
     return (
       <div className="loading-container">
         <Loader />

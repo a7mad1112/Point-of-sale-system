@@ -1,7 +1,12 @@
 import { Box, Button } from "@mui/material";
 import SectionHeading from "../Components/SectionHeading/SectionHeading";
 import cashierImg from "../../assets/Cashier.png";
+import { CartsType } from "../../types/types";
+import { useSelector } from "react-redux";
+import CartCard from "./Components/CartCard/CartCard";
 function Home() {
+  const carts: CartsType = useSelector((state: any) => state.carts.carts);
+
   return (
     <>
       <section>
@@ -73,7 +78,31 @@ function Home() {
         <CreateCategoryModal setIsShow={setShowCreateModal} />
       )} */}
       </section>
-
+      <section>
+          <SectionHeading position="center" text="Carts" />
+        <Box flex={1} minWidth={300} margin="auto" p={2} pb={4}>
+        </Box>
+        <Box
+          display="flex"
+          flexDirection="row"
+          flexWrap="wrap"
+          justifyContent="space-between"
+          alignItems="center"
+          gap={2}
+        >
+          {!carts?.length ? (
+            <p>
+              Oops! It seems that no categories have been added yet. Don't
+              worry, you can easily add new categories to your system to
+              organize your products more effectively. Just click the "Add
+              Category" button to get started and enhance your inventory
+              management.
+            </p>
+          ) : (
+            carts.map((cart) => <CartCard key={cart.id} cart={cart} />)
+          )}
+        </Box>
+      </section>
     </>
   );
 }
