@@ -26,7 +26,7 @@ function Home() {
                 carts, providing you with a flexible and efficient checkout
                 process. Here are the key features and actions available to you:
               </p>
-              <ol>
+              <ul>
                 <li>
                   Create Carts: Initiate new carts for different customers or
                   transactions, each with a unique identifier. This allows you
@@ -42,7 +42,7 @@ function Home() {
                   system to keep your workspace organized and focused on active
                   transactions.
                 </li>
-              </ol>
+              </ul>
 
               <p>
                 By leveraging these cart management capabilities, you can
