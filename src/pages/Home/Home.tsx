@@ -4,9 +4,12 @@ import cashierImg from "../../assets/Cashier.png";
 import { CartsType } from "../../types/types";
 import { useSelector } from "react-redux";
 import CartCard from "./Components/CartCard/CartCard";
+import { useState } from "react";
+import CreateCartModal from "./Components/CreateCartModal/CreateCartModal";
 function Home() {
   const carts: CartsType = useSelector((state: any) => state.carts.carts);
-
+  // state for create cart modal
+  const [showCreateModal, setShowCreateModal] = useState(false);
   return (
     <>
       <section>
@@ -51,7 +54,7 @@ function Home() {
               </p>
             </article>
             <Button
-              // onClick={() => setShowCreateModal(true)}
+              onClick={() => setShowCreateModal(true)}
               sx={{
                 my: 4,
                 backgroundColor: "var(--yellow-color)",
@@ -74,14 +77,11 @@ function Home() {
             <img style={{ width: "100%" }} src={cashierImg} alt="cashier-img" />
           </Box>
         </Box>
-        {/* {showCreateModal && (
-        <CreateCategoryModal setIsShow={setShowCreateModal} />
-      )} */}
+        {showCreateModal && <CreateCartModal setIsShow={setShowCreateModal} />}
       </section>
       <section>
-          <SectionHeading position="center" text="Carts" />
-        <Box flex={1} minWidth={300} margin="auto" p={2} pb={4}>
-        </Box>
+        <SectionHeading position="center" text="Carts" />
+        <Box flex={1} minWidth={300} margin="auto" p={2} pb={4}></Box>
         <Box
           display="flex"
           flexDirection="row"
