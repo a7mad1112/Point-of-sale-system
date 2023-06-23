@@ -1,15 +1,24 @@
-import { Box, Button } from "@mui/material";
+import { Autocomplete, Box, Button, TextField } from "@mui/material";
 import SectionHeading from "../Components/SectionHeading/SectionHeading";
 import cashierImg from "../../assets/Cashier.png";
-import { CartsType } from "../../types/types";
+import { CartsType, CategoriesType, Products } from "../../types/types";
 import { useSelector } from "react-redux";
 import CartCard from "./Components/CartCard/CartCard";
 import { useState } from "react";
 import CreateCartModal from "./Components/CreateCartModal/CreateCartModal";
+import ProductCard from "./Components/ProductCard/ProductCard";
 function Home() {
   const carts: CartsType = useSelector((state: any) => state.carts.carts);
+  const products: Products = useSelector(
+    (state: any) => state.products.products
+  );
+  const categories: CategoriesType = useSelector(
+    (state: any) => state.categories.categories
+  );
   // state for create cart modal
   const [showCreateModal, setShowCreateModal] = useState(false);
+  // filter products
+
   return (
     <>
       <section>
@@ -102,6 +111,59 @@ function Home() {
             carts.map((cart) => <CartCard key={cart.id} cart={cart} />)
           )}
         </Box>
+      </section>
+      <section>
+        <SectionHeading position="center" text="Our Products" />
+        <Box
+          marginTop={4}
+          display="flex"
+          flexDirection="row"
+          flexWrap="wrap"
+          justifyContent="space-between"
+          alignItems="flex-start"
+          gap={2}
+        >
+          <Box flex={1} minWidth={300} margin="auto" p={2}>
+            {/* search element */}
+            <Autocomplete
+              freeSolo
+              disableClearable
+              options={products.map((prod) => prod.attributes.name)}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  label="I'm Looking for..."
+                  InputProps={{
+                    ...params.InputProps,
+                    type: "search",
+                    onChange: (event) => {
+                      console.log("Input value:", event.target.value);
+                    },
+                  }}
+                />
+              )}
+            />
+          </Box>
+          {/* categories for filter */}
+          <Box flex={1} minWidth={300} margin="auto" p={2}>
+            <select
+              style={{ width: "100%", border: "1px solid #eee" }}
+              // onChange={(e) => setSortTerm(e.target.value)}
+            >
+              <option value="all">All</option>
+              {categories.map((cat) => (
+                <option value={cat.id}>{cat.attributes.name}</option>
+              ))}
+            </select>
+          </Box>
+        </Box>
+
+        {/* products cards */}
+        <div className="products-container">
+          {products?.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
+        </div>
       </section>
     </>
   );
