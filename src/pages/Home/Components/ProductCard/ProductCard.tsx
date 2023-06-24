@@ -3,12 +3,19 @@ import { Product } from "../../../../types/types";
 import { Button } from "@mui/material";
 type ProductCardProps = {
   product: Product;
+  setShowAddToCartModal: React.Dispatch<React.SetStateAction<boolean>>;
+  setSelectedProductId:  React.Dispatch<React.SetStateAction<number>>;
 };
-const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+
+const ProductCard: React.FC<ProductCardProps> = ({ product, setShowAddToCartModal, setSelectedProductId }) => {
   const img =
     "http://localhost:1337" +
       product.attributes.images?.data?.[0]?.attributes?.url ?? null;
-  console.log(img);
+  // console.log(img);
+  const showCartModal = () => {
+    setSelectedProductId(product.id);
+    setShowAddToCartModal(true)
+  }
   return (
     <div className="card product-item">
       <div className="product-img">
@@ -26,7 +33,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           </span>
         </div>
         <Button
-          // onClick={() => setShowCreateModal(true)}
+          onClick={() => showCartModal()}
           sx={{
             my: 4,
             backgroundColor: "var(--yellow-color)",

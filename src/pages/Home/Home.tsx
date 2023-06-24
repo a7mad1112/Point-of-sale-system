@@ -7,6 +7,7 @@ import CartCard from "./Components/CartCard/CartCard";
 import { useState } from "react";
 import CreateCartModal from "./Components/CreateCartModal/CreateCartModal";
 import ProductCard from "./Components/ProductCard/ProductCard";
+import AddToCartModal from "./Components/AddToCartModal/AddToCartModal";
 function Home() {
   const carts: CartsType = useSelector((state: any) => state.carts.carts);
   const products: Products = useSelector(
@@ -19,6 +20,9 @@ function Home() {
   const [showCreateModal, setShowCreateModal] = useState(false);
   // filter products
 
+  // for add to cart modal
+  const [showAddToCartModal, setShowAddToCartModal] = useState(false);
+  const [selectedProductId, setSelectedProductId] = useState(-1);
   return (
     <>
       <section>
@@ -115,7 +119,8 @@ function Home() {
       <section>
         <SectionHeading position="center" text="Our Products" />
         <Box
-          marginTop={4}
+          marginTop={6}
+          marginBottom={6}
           display="flex"
           flexDirection="row"
           flexWrap="wrap"
@@ -152,7 +157,9 @@ function Home() {
             >
               <option value="all">All</option>
               {categories.map((cat) => (
-                <option value={cat.id}>{cat.attributes.name}</option>
+                <option value={cat.id} key={cat.id}>
+                  {cat.attributes.name}
+                </option>
               ))}
             </select>
           </Box>
@@ -161,9 +168,15 @@ function Home() {
         {/* products cards */}
         <div className="products-container">
           {products?.map((product) => (
-            <ProductCard key={product.id} product={product} />
+            <ProductCard key={product.id} product={product} setShowAddToCartModal={setShowAddToCartModal} setSelectedProductId={setSelectedProductId}/>
           ))}
         </div>
+        {showAddToCartModal && (
+          <AddToCartModal
+            setIsShow={setShowAddToCartModal}
+            selectedProductId={selectedProductId}
+          />
+        )}
       </section>
     </>
   );
