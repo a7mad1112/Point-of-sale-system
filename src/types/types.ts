@@ -96,3 +96,25 @@ export interface CartType {
   };
 }
 export type CartsType = CartType[];
+// cartProduct Type:
+export type CartProduct = {
+  id: number;
+  attributes: {
+    product: {
+      data: {
+        product: Product;
+        id: number;
+      };
+    };
+    cart: {
+      data: {
+        cart: CartType;
+        id: number;
+      };
+    };
+    quantity: number;
+    createdAt?: string;
+    updatedAt?: string;
+    publishedAt?: string;
+  };
+};

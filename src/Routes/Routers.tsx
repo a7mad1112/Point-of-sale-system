@@ -7,11 +7,12 @@ import Products from "../pages/Products/Products";
 import useFetch from "../hooks/useFetch";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { measuresActions } from "../store/states/measuresSlice";
 import Loader from "../pages/Components/Loader/Loader";
-import { categoryActions } from "../store/states/categoriesSlice";
-import { productsActions } from "../store/states/productsSlice";
+import { cartProductsActions } from "../store/states/cartProductsSlice";
 import { cartsActions } from "../store/states/cartSlice";
+import { productsActions } from "../store/states/productsSlice";
+import { categoryActions } from "../store/states/categoriesSlice";
+import { measuresActions } from "../store/states/measuresSlice";
 export const Routers = () => {
   // fetch data[categories, measures, products]
   const dispatch = useDispatch();
@@ -49,11 +50,20 @@ export const Routers = () => {
     dispatch(cartsActions.setCarts(cartsRes.data.data));
   }, [cartsRes, dispatch]);
 
+    // fetch carts products
+    const { response: cartProductsRes } = useFetch(
+      "http://localhost:1337/api/carts-products1?populate=*"
+    );
+    useEffect(() => {
+      dispatch(cartProductsActions.setCartProducts(cartProductsRes.data.data));
+    }, [cartProductsRes, dispatch]);
+
   const loading = [
     measuresRes.loading,
     categoriesRes.loading,
     productsRes.loading,
     cartsRes.loading,
+    cartProductsRes.loading
   ];
   if (loading.some((l) => l === true))
     return (

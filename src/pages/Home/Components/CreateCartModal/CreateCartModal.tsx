@@ -20,6 +20,7 @@ const CreateCartModal: React.FC<CreateCartModalProps> = ({ setIsShow }) => {
   const dispatch = useDispatch();
   const URL = "http://localhost:1337/api/carts1?populate=*"
   const { postData } = usePost(URL);
+  const { postData: postCartProduct } = usePost(URL);
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -34,8 +35,7 @@ const CreateCartModal: React.FC<CreateCartModalProps> = ({ setIsShow }) => {
         },
       };
       closeModal();
-      postData(data);
-      // use useFetch here
+      await postData(data);
       try {
         const res = await fetch(URL);
         const data = await res.json();

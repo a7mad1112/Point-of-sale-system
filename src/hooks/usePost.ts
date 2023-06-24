@@ -24,7 +24,7 @@ const usePost = (url: string) => {
   const [error, setError] = useState<string | null>(null);
   const [response, setResponse] = useState<PostResponse | null>(null);
 
-  const postData = async (data: PostData) => {
+  const postData = async (data: any) => {
     try {
       setLoading(true);
       setError(null);
