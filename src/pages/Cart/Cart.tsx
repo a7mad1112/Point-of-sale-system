@@ -58,8 +58,8 @@ const Cart = () => {
           />
         </Box>
         {cart?.attributes.desc && (
-          <article>
-            <h3>{cart?.attributes.desc}</h3>
+          <article style={{margin: "15px 0"}}>
+            <p>{cart?.attributes.desc}</p>
           </article>
         )}
         {!products.length ? (
