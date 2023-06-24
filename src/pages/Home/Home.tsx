@@ -23,26 +23,32 @@ function Home() {
   // for add to cart modal
   const [showAddToCartModal, setShowAddToCartModal] = useState(false);
   const [selectedProductId, setSelectedProductId] = useState(-1);
-  // function to handle search
-  const [filteredProducts, setFilteredProducts] = useState(products);
-  const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
-    // console.log(e.target.value);
-    const searchTerm = e.target.value.trim();
-    const items = products.filter((prod) => {
-      if (searchTerm === "") return prod;
-      return prod.attributes.name.toLowerCase().includes(searchTerm.toLowerCase());
-    });
-    setFilteredProducts(items);
-  };
-  /*
-    const searchedProduct = sortProducts(
-    products.filter((item) => {
-      if (searchTerm.value === "") return item;
-      return item.title.toLowerCase().includes(searchTerm.toLowerCase());
-    })
-  );
+  // function to handle search and filter
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedCategoryId, setSelectedCategoryId] = useState("all");
 
-  */
+  const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(e.target.value.trim().toLowerCase());
+  };
+
+  const handleSelect = (e: ChangeEvent<HTMLSelectElement>) => {
+    setSelectedCategoryId(e.target.value);
+  };
+
+  const filteredProducts = products.filter((product) => {
+    const productName = product.attributes.name.toLowerCase();
+    let categoryMatch: boolean;
+    if (
+      selectedCategoryId === "all" ||
+      product.attributes.category.data?.id === +selectedCategoryId
+    )
+      categoryMatch = true;
+    else categoryMatch = false;
+
+    const searchTermMatch = searchTerm === "" || productName.includes(searchTerm);
+
+    return categoryMatch && searchTermMatch;
+  });
   return (
     <>
       <section>
@@ -153,9 +159,7 @@ function Home() {
             <Autocomplete
               freeSolo
               disableClearable
-              options={filteredProducts?.map(
-                (prod) => prod.attributes.name
-              )}
+              options={filteredProducts?.map((prod) => prod.attributes.name)}
               renderInput={(params) => (
                 <TextField
                   {...params}
@@ -173,9 +177,9 @@ function Home() {
           <Box flex={1} minWidth={300} margin="auto" p={2}>
             <select
               style={{ width: "100%", border: "1px solid #eee" }}
-              // onChange={(e) => setSortTerm(e.target.value)}
+              onChange={handleSelect}
             >
-              <option value="all">All</option>
+              <option value="all">All Categories</option>
               {categories?.map((cat) => (
                 <option value={cat.id} key={cat.id}>
                   {cat.attributes.name}
