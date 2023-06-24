@@ -4,7 +4,7 @@ import cashierImg from "../../assets/Cashier.png";
 import { CartsType, CategoriesType, Products } from "../../types/types";
 import { useSelector } from "react-redux";
 import CartCard from "./Components/CartCard/CartCard";
-import { useState } from "react";
+import { useState, ChangeEvent } from "react";
 import CreateCartModal from "./Components/CreateCartModal/CreateCartModal";
 import ProductCard from "./Components/ProductCard/ProductCard";
 import AddToCartModal from "./Components/AddToCartModal/AddToCartModal";
@@ -23,6 +23,26 @@ function Home() {
   // for add to cart modal
   const [showAddToCartModal, setShowAddToCartModal] = useState(false);
   const [selectedProductId, setSelectedProductId] = useState(-1);
+  // function to handle search
+  const [filteredProducts, setFilteredProducts] = useState(products);
+  const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
+    // console.log(e.target.value);
+    const searchTerm = e.target.value.trim();
+    const items = products.filter((prod) => {
+      if (searchTerm === "") return prod;
+      return prod.attributes.name.toLowerCase().includes(searchTerm.toLowerCase());
+    });
+    setFilteredProducts(items);
+  };
+  /*
+    const searchedProduct = sortProducts(
+    products.filter((item) => {
+      if (searchTerm.value === "") return item;
+      return item.title.toLowerCase().includes(searchTerm.toLowerCase());
+    })
+  );
+
+  */
   return (
     <>
       <section>
@@ -133,7 +153,9 @@ function Home() {
             <Autocomplete
               freeSolo
               disableClearable
-              options={products.map((prod) => prod.attributes.name)}
+              options={filteredProducts?.map(
+                (prod) => prod.attributes.name
+              )}
               renderInput={(params) => (
                 <TextField
                   {...params}
@@ -141,9 +163,7 @@ function Home() {
                   InputProps={{
                     ...params.InputProps,
                     type: "search",
-                    onChange: (event) => {
-                      console.log("Input value:", event.target.value);
-                    },
+                    onChange: handleSearch,
                   }}
                 />
               )}
@@ -167,8 +187,13 @@ function Home() {
 
         {/* products cards */}
         <div className="products-container">
-          {products?.map((product) => (
-            <ProductCard key={product.id} product={product} setShowAddToCartModal={setShowAddToCartModal} setSelectedProductId={setSelectedProductId}/>
+          {filteredProducts?.map((product) => (
+            <ProductCard
+              key={product.id}
+              product={product}
+              setShowAddToCartModal={setShowAddToCartModal}
+              setSelectedProductId={setSelectedProductId}
+            />
           ))}
         </div>
         {showAddToCartModal && (
