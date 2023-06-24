@@ -1,4 +1,4 @@
-.main-heading h2 {
+.main-heading h2, .main-heading input {
   font-weight: normal;
   font-size: 1.6rem;
   position: relative;
@@ -7,13 +7,20 @@
   padding-top: 80px;
 }
 
+.main-heading input {
+  padding-top: 0px;
+  margin-top: 80px;
+}
+
 @media (max-width: 768px) {
-  .main-heading h2 {
+  .main-heading h2,
+  .main-heading input {
     margin-bottom: 15px;
   }
 }
 
-.center-heading h2::before {
+.center-heading h2::before,
+.main-heading input::before {
   content: "";
   position: absolute;
   left: 50%;
@@ -24,7 +31,8 @@
   width: 110px;
 }
 
-.center-heading h2::after {
+.center-heading h2::after,
+.main-heading input::after {
   content: "";
   position: absolute;
   left: 50%;
@@ -35,4 +43,16 @@
   border: 1px solid var(--black-color, #000);
   bottom: -18px;
   background-color: white;
+}
+
+.main-heading input {
+  width: 200px;
+  text-align: start;
+  color: var(--red-color);
+  font-weight: 700;
+}
+
+.main-heading input:focus {
+  border: 1px solid #000;
+  box-sizing: border-box;
 }

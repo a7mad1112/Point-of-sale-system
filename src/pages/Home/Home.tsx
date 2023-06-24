@@ -156,7 +156,7 @@ function Home() {
               // onChange={(e) => setSortTerm(e.target.value)}
             >
               <option value="all">All</option>
-              {categories.map((cat) => (
+              {categories?.map((cat) => (
                 <option value={cat.id} key={cat.id}>
                   {cat.attributes.name}
                 </option>
