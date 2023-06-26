@@ -15,6 +15,7 @@ const ProductsTable: React.FC<ProductsTableProps> = ({ cartsProducts }) => {
             <th>Product Name</th>
             <th>Product Price</th>
             <th>Quantity</th>
+            <th>Delete</th>
           </tr>
         </thead>
         <tbody>

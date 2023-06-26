@@ -1,6 +1,7 @@
 import { useDispatch } from "react-redux";
 import usePut from "../../../../hooks/usePut";
 import { cartProductsActions } from "../../../../store/states/cartProductsSlice";
+import useDelete from "../../../../hooks/useDelete";
 
 type ProductsRowProps = {
   cartProduct: any;
@@ -11,11 +12,14 @@ const TableRow: React.FC<ProductsRowProps> = ({ cartProduct }) => {
     cartProduct.attributes.product.data.attributes;
   const { quantity: productQuantity } = cartProduct.attributes;
   // handle quantity actions:
-  const handleDecrement = () => updateQuantity(productQuantity - 1);
+  const handleDecrement = () => {
+    if (productQuantity <= 1) deleteItem();
+    else updateQuantity(productQuantity - 1);
+  };
   const handleIncrement = () => updateQuantity(productQuantity + 1);
   // function to update quantity
-  const PUT_URL = `http://localhost:1337/api/carts-products1/${cartProduct.id}?populate=*`;
-  const { putData } = usePut(PUT_URL);
+  const PUT_DELETE_URL = `http://localhost:1337/api/carts-products1/${cartProduct.id}?populate=*`;
+  const { putData } = usePut(PUT_DELETE_URL);
   const dispatch = useDispatch();
   const updateQuantity = async (quantity: number) => {
     // console.log("new value " + quantity);
@@ -26,7 +30,16 @@ const TableRow: React.FC<ProductsRowProps> = ({ cartProduct }) => {
     };
     await putData(payload);
     // re fetch cart product
-
+    await storeData();
+  };
+  // function to delete item in cart
+  const { deleteData } = useDelete(PUT_DELETE_URL);
+  const deleteItem = async () => {
+    await deleteData();
+    await storeData();
+  };
+  // function to fetch new data and store it
+  const storeData = async () => {
     try {
       const res = await fetch(
         "http://localhost:1337/api/carts-products1?populate=*"
@@ -52,6 +65,9 @@ const TableRow: React.FC<ProductsRowProps> = ({ cartProduct }) => {
               -
             </span>
           </div>
+        </td>
+        <td className="delete" onClick={deleteItem}>
+          Delete
         </td>
       </tr>
     </>

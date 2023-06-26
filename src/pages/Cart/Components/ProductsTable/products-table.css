@@ -22,3 +22,8 @@
 .table tbody tr:hover #decrement-quantity {
   background-color: white !important;
 }
+
+.table .delete {
+  font-weight: bold;
+  cursor: pointer;
+}
