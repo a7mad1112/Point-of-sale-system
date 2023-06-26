@@ -1,7 +1,7 @@
 import { Product, Image } from "../../../types/types";
 import { AiFillEdit } from "react-icons/ai";
 import { AiFillDelete } from "react-icons/ai";
-
+import { Link } from "react-router-dom";
 import "./product-card.css";
 interface ProductCardProps {
   product: Product;
@@ -29,22 +29,21 @@ const ProductCard: React.FC<ProductCardProps> = ({
     ? "http://localhost:1337" + prodImg.attributes.url
     : "";
   ///////
-
+  let productCat = product.attributes.category
+    ? product.attributes.category.data?.attributes.name
+    : "NULL";
+  productCat = productCat?.split(" ")[0];
+  const productName = product.attributes.name;
   return (
     <div className="card product-item">
       <div className="product-img">
         <img src={prodImgUrl} alt="" />
       </div>
       <div className="product-content">
-        <h3>{product.attributes.name}</h3>
-
+        <Link to={`/products/${product.id}`}>{productName}</Link>
         <div className="pro-data">
           <span className="product-data">${product.attributes.price}</span>
-          <span className="product-data">
-            {product.attributes.category
-              ? product.attributes.category.data?.attributes.name
-              : "NULL"}
-          </span>
+          <span className="product-data">{productCat}</span>
         </div>
         {/* delete of edit */}
         <div className="actions">

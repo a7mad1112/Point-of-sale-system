@@ -13,6 +13,7 @@ import { cartsActions } from "../store/states/cartSlice";
 import { productsActions } from "../store/states/productsSlice";
 import { categoryActions } from "../store/states/categoriesSlice";
 import { measuresActions } from "../store/states/measuresSlice";
+import ProductPage from "../pages/Product/Product";
 export const Routers = () => {
   // fetch data[categories, measures, products]
   const dispatch = useDispatch();
@@ -87,6 +88,7 @@ export const Routers = () => {
       <Route path="categories/" element={<Categories />} />
       <Route path="/measure" element={<Measure />} />
       <Route path="/products" element={<Products />} />
+      <Route path="/products/:id" element={<ProductPage />} />
     </Routes>
   );
 };
