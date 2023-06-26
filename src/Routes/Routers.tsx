@@ -13,6 +13,7 @@ import { cartsActions } from "../store/states/cartSlice";
 import { productsActions } from "../store/states/productsSlice";
 import { categoryActions } from "../store/states/categoriesSlice";
 import { measuresActions } from "../store/states/measuresSlice";
+import { CartsType } from "../types/types";
 export const Routers = () => {
   // fetch data[categories, measures, products]
   const dispatch = useDispatch();
@@ -47,23 +48,31 @@ export const Routers = () => {
     "http://localhost:1337/api/carts1?populate=*"
   );
   useEffect(() => {
-    dispatch(cartsActions.setCarts(cartsRes.data.data));
+    // we don't need completed carts[checkout carts], so will filter them
+    const allCarts: any = cartsRes.data.data;
+    let filteredCarts = [];
+    if (allCarts) {
+      filteredCarts = allCarts.filter(
+        (cart: any) => !cart.attributes.completed
+      );
+    }
+    dispatch(cartsActions.setCarts(filteredCarts));
   }, [cartsRes, dispatch]);
 
-    // fetch carts products
-    const { response: cartProductsRes } = useFetch(
-      "http://localhost:1337/api/carts-products1?populate=*"
-    );
-    useEffect(() => {
-      dispatch(cartProductsActions.setCartProducts(cartProductsRes.data.data));
-    }, [cartProductsRes, dispatch]);
+  // fetch carts products
+  const { response: cartProductsRes } = useFetch(
+    "http://localhost:1337/api/carts-products1?pagination[limit]=-1&populate=*"
+  );
+  useEffect(() => {
+    dispatch(cartProductsActions.setCartProducts(cartProductsRes.data.data));
+  }, [cartProductsRes, dispatch]);
 
   const loading = [
     measuresRes.loading,
     categoriesRes.loading,
     productsRes.loading,
     cartsRes.loading,
-    cartProductsRes.loading
+    cartProductsRes.loading,
   ];
   if (loading.some((l) => l === true))
     return (

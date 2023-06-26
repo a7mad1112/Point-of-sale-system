@@ -1,11 +1,12 @@
 import { useState, useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
-import { CartsType, Products, CartProduct } from "../../types/types";
+import { useParams, useNavigate } from "react-router-dom";
+import { CartsType, CartProduct } from "../../types/types";
 import ProductsTable from "./Components/ProductsTable/ProductsTable";
-import { Box } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import usePut from "../../hooks/usePut";
 import { cartsActions } from "../../store/states/cartSlice";
+import "./cart.css";
 const Cart = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
@@ -48,13 +49,52 @@ const Cart = () => {
   const [matchingCarts, setMatchingCarts] = useState(cartProducts);
   useEffect(() => {
     // get carts matching cart id
+
     const newCarts = cartProducts?.filter(
       (cartProd) => cartProd?.attributes.cart.data.id === (id ? +id : -1)
     );
-    setMatchingCarts(newCarts)
-    // console.log(matchingCarts);
+    setMatchingCarts(newCarts);
   }, [cartProducts, id]);
+  // handle discount and tax
+  const [discount, setDiscount] = useState(0);
+  const handleDiscount = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    setDiscount(+event.target.value);
+  };
 
+  const [tax, setTax] = useState(0);
+  const handleTax = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    setTax(+event.target.value);
+  };
+  // calc total price [before tax and discount]
+  // first calc total price of products in cart (each product has price * quantity)
+  const sumOfCart = matchingCarts?.reduce(
+    (previousValue, currentValue: any) => {
+      // const totalPriceOfProduct = currentValue.attributes.quantity * currentValue.attributes.product.data.price;
+      const totalPriceOfProduct =
+        currentValue.attributes.quantity *
+        currentValue.attributes.product.data?.attributes.price;
+      return previousValue + totalPriceOfProduct;
+    },
+    0
+  );
+  // calc total amount
+  const totalAmount = sumOfCart + sumOfCart * tax - sumOfCart * discount;
+  // handle checkout [function just change the value of completion in the cart]
+  // use useHistory hook to go to hame after checkout cart
+  const navigate = useNavigate();
+  const handleCheckout = async () => {
+    const payload = {
+      data: {
+        completed: true,
+      },
+    };
+    await putData(payload);
+    // re fetch actual carts and filter them:
+    console.log(payload);
+    // Navigate to Home page and refresh the website
+    navigate("/");
+    window.location.reload(); // Refresh the website
+  };
   return (
     <>
       <section>
@@ -71,6 +111,7 @@ const Cart = () => {
         </Box>
         {cart?.attributes.desc && (
           <article style={{ margin: "15px 0" }}>
+            <h3>Description</h3>
             <p>{cart?.attributes.desc}</p>
           </article>
         )}
@@ -81,8 +122,54 @@ const Cart = () => {
             the "Add to Cart" button to get started.
           </p>
         ) : (
-          // <p>found</p>
-          <ProductsTable cartsProducts={matchingCarts} />
+          <>
+            {/* a field for handle discount */}
+            <div className="input-field">
+              <label htmlFor="discount">Discount:</label>
+              <input
+                type="number"
+                name="discount"
+                id="discount"
+                onChange={handleDiscount}
+                value={discount}
+              />
+            </div>
+            {/* a field for tax applied */}
+            <div className="input-field">
+              <label htmlFor="tax">Tax:</label>
+              <input
+                type="number"
+                name="tax"
+                id="tax"
+                onChange={handleTax}
+                value={tax}
+              />
+            </div>
+            <ProductsTable cartsProducts={matchingCarts} />
+            <hr />
+            <Box marginTop={3} className="total-price">
+              <p>Total Amount:</p>
+              <span>${sumOfCart ? Math.ceil(totalAmount) : 0}</span>
+            </Box>
+            <Button
+              onClick={handleCheckout}
+              sx={{
+                my: 4,
+                backgroundColor: "var(--yellow-color)",
+                color: "#FFFFFF",
+                fontWeight: "bold",
+                transition: "0.3s",
+                "&:hover": {
+                  opacity: 0.8,
+                  backgroundColor: "var(--red-color)",
+                  transform: "translateY(-2px)",
+                },
+              }}
+              variant="contained"
+            >
+              Checkout
+            </Button>
+          </>
         )}
       </section>
     </>
