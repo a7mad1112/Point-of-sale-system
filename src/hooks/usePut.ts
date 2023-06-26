@@ -1,10 +1,12 @@
 import { useState } from "react";
 
-type PutData = {
-  data: {
-    name: string;
-  };
-};
+type PutData =
+  | any
+  | {
+      data: {
+        name: string;
+      };
+    };
 
 type PutResponse = {
   data: {

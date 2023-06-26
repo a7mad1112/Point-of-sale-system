@@ -1,15 +1,15 @@
 import { CartProduct } from "../../../../types/types";
 import TableRow from "../TableRow/TableRow";
-
+import './products-table.css'
 type ProductsTableProps = {
   cartsProducts: CartProduct [];
 };
 
 const ProductsTable: React.FC<ProductsTableProps> = ({ cartsProducts }) => {
-  console.log(cartsProducts)
+  // console.log(cartsProducts)
   return (
     <div className="measures-table">
-      <table>
+      <table className="table">
         <thead>
           <tr>
             <th>Product Name</th>
