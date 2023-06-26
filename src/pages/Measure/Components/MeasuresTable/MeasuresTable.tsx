@@ -26,7 +26,7 @@ const MeasuresTable: React.FC<MeasuresTableProps> = ({ measures }) => {
   const [deleteId, setDeleteId] = useState(measures[0].id);
   const [dialog, setDialog] = useState({
     loading: false,
-    msg: "Are you sure you want to delete this measure?" 
+    msg: "Are you sure you want to delete this measure?",
   });
   const URL = "http://localhost:1337/api/unit-of-measures1";
   const { deleteData } = useDelete(URL + "/" + deleteId);
@@ -35,7 +35,9 @@ const MeasuresTable: React.FC<MeasuresTableProps> = ({ measures }) => {
     await deleteData();
     // after delete the item, we need te reset our state
     try {
-      const res = await fetch(URL);
+      const res = await fetch(
+        "http://localhost:1337/api/unit-of-measures1?pagination[limit]=-1"
+      );
       if (!res.ok) {
         throw new Error(res.statusText);
       }
@@ -76,9 +78,13 @@ const MeasuresTable: React.FC<MeasuresTableProps> = ({ measures }) => {
           setEditModal={setEditModal}
         />
       )}
-      {
-        dialog.loading && <Dialog dialog={dialog} setDialog={setDialog} handleDelete={handleDelete} />
-      }
+      {dialog.loading && (
+        <Dialog
+          dialog={dialog}
+          setDialog={setDialog}
+          handleDelete={handleDelete}
+        />
+      )}
     </div>
   );
 };

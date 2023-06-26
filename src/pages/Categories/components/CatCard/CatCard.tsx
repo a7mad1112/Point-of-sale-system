@@ -18,7 +18,7 @@ const CatCard = ({ category }: { category: Category }) => {
   const handleDelete = async () => {
     await deleteData();
     // after delete the item, we need te reset our state
-    const URL = "http://localhost:1337/api/categories1";
+    const URL = "http://localhost:1337/api/categories1?pagination[limit]=-1"
     try {
       const res = await fetch(URL);
       if (!res.ok) {

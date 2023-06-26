@@ -18,9 +18,8 @@ const validationSchema = Yup.object({
 const CreateCartModal: React.FC<CreateCartModalProps> = ({ setIsShow }) => {
   const closeModal = () => setIsShow(false);
   const dispatch = useDispatch();
-  const URL = "http://localhost:1337/api/carts1?populate=*"
+  const URL = "http://localhost:1337/api/carts1?pagination[limit]=-1&populate=*"
   const { postData } = usePost(URL);
-  const { postData: postCartProduct } = usePost(URL);
   const formik = useFormik({
     initialValues: {
       name: "",

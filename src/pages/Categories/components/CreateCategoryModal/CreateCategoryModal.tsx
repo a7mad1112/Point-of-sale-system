@@ -34,7 +34,7 @@ const CreateCategoryModal = ({ setIsShow }: CreateCategoryModalProps) => {
       postData(data);
       // use useFetch here
       try {
-        const res = await fetch(url);
+        const res = await fetch(url + "?pagination[limit]=-1");
         if (!res.ok) {
           throw new Error(res.statusText);
         }

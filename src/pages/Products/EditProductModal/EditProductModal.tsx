@@ -60,7 +60,7 @@ const EditProductModal: React.FC<EditProductModalProps> = ({
       }
       // get updated products
       try {
-        const res = await fetch("http://localhost:1337/api/products1?populate=*", {
+        const res = await fetch("http://localhost:1337/api/unit-of-measures1?pagination[limit]=-1", {
           method: "GET",
         });
         const data = await res.json();

@@ -22,7 +22,8 @@ type CreateMeasureModalProps = {
 
 const CreateMeasureModal = ({ setIsShow }: CreateMeasureModalProps) => {
   const closeModal = () => setIsShow(false);
-  const URL = "http://localhost:1337/api/unit-of-measures1";
+  const URL =
+    "http://localhost:1337/api/unit-of-measures1?pagination[limit]=-1";
   const { postData } = usePost(URL);
   const dispatch = useDispatch();
   const formik = useFormik({

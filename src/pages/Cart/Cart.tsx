@@ -32,7 +32,7 @@ const Cart = () => {
 
     await putData(data);
 
-    const URL = "http://localhost:1337/api/carts1?populate=*";
+    const URL = "http://localhost:1337/api/carts1?pagination[limit]=-1&populate=*"
     try {
       const res = await fetch(URL);
       const data = await res.json();

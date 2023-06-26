@@ -80,7 +80,7 @@ const AddToCartModal: React.FC<AddToCartModalProps> = ({
       }
       // re fetch data to store it in our redux store
       try {
-        const res = await fetch("http://localhost:1337/api/carts-products1?populate=*");
+        const res = await fetch("http://localhost:1337/api/carts-products1?pagination[limit]=-1&populate=*");
         const data = await res.json();
         dispatch(cartProductsActions.setCartProducts(data.data));
       } catch (error) {

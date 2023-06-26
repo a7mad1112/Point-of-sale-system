@@ -13,12 +13,12 @@ import { cartsActions } from "../store/states/cartSlice";
 import { productsActions } from "../store/states/productsSlice";
 import { categoryActions } from "../store/states/categoriesSlice";
 import { measuresActions } from "../store/states/measuresSlice";
-import { CartsType } from "../types/types";
 export const Routers = () => {
   // fetch data[categories, measures, products]
   const dispatch = useDispatch();
   // fetch measures
-  const MEASURES_URL = "http://localhost:1337/api/unit-of-measures1";
+  const MEASURES_URL =
+    "http://localhost:1337/api/unit-of-measures1?pagination[limit]=-1";
   const { response: measuresRes } = useFetch(MEASURES_URL);
 
   useEffect(() => {
@@ -29,7 +29,7 @@ export const Routers = () => {
 
   // fetch categories
   const { response: categoriesRes } = useFetch(
-    "http://localhost:1337/api/categories1"
+    "http://localhost:1337/api/categories1?pagination[limit]=-1"
   );
   useEffect(() => {
     dispatch(categoryActions.setCategories(categoriesRes.data.data));
@@ -37,7 +37,7 @@ export const Routers = () => {
 
   // fetch products
   const { response: productsRes } = useFetch(
-    "http://localhost:1337/api/products1?populate=*"
+    "http://localhost:1337/api/products1?pagination[limit]=-1&populate=*"
   );
   useEffect(() => {
     dispatch(productsActions.setProducts(productsRes.data.data));
@@ -45,7 +45,7 @@ export const Routers = () => {
 
   // fetch carts
   const { response: cartsRes } = useFetch(
-    "http://localhost:1337/api/carts1?populate=*"
+    "http://localhost:1337/api/carts1?pagination[limit]=-1&populate=*"
   );
   useEffect(() => {
     // we don't need completed carts[checkout carts], so will filter them

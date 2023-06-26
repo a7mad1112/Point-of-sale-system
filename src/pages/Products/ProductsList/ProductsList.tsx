@@ -27,7 +27,9 @@ const ProductsList = () => {
     await deleteData();
     // after delete the item, we need te reset our state
     try {
-      const res = await fetch("http://localhost:1337/api/products1?populate=*");
+      const res = await fetch(
+        "http://localhost:1337/api/products1?pagination[limit]=-1&populate=*"
+      );
       if (!res.ok) {
         throw new Error(res.statusText);
       }

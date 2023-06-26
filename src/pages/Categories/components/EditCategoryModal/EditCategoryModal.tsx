@@ -33,7 +33,7 @@ const EditCategoryModal = ({ setIsShow, URL }: EditCategoryModalProps) => {
       };
       await putData(data);
       try {
-        const res = await fetch("http://localhost:1337/api/categories1");
+        const res = await fetch("http://localhost:1337/api/categories1?pagination[limit]=-1");
         if (!res.ok) {
           throw new Error(res.statusText);
         }
