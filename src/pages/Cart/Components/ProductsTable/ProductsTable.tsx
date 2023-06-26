@@ -1,11 +1,12 @@
-import { Product, Products } from "../../../../types/types";
+import { CartProduct } from "../../../../types/types";
 import TableRow from "../TableRow/TableRow";
 
 type ProductsTableProps = {
-  products: Products;
+  cartsProducts: CartProduct [];
 };
 
-const ProductsTable: React.FC<ProductsTableProps> = ({ products }) => {
+const ProductsTable: React.FC<ProductsTableProps> = ({ cartsProducts }) => {
+  console.log(cartsProducts)
   return (
     <div className="measures-table">
       <table>
@@ -17,10 +18,10 @@ const ProductsTable: React.FC<ProductsTableProps> = ({ products }) => {
           </tr>
         </thead>
         <tbody>
-          {products.map((product: Product) => (
+          {cartsProducts.map((cartPro: CartProduct) => (
             <TableRow
-              key={product.id}
-              product={product}
+              key={cartPro.id}
+              cartProduct={cartPro}
             />
           ))}
         </tbody>

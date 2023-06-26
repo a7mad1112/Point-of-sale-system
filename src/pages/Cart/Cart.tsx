@@ -1,12 +1,11 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { CartsType } from "../../types/types";
+import { CartsType, Products, CartProduct } from "../../types/types";
 import ProductsTable from "./Components/ProductsTable/ProductsTable";
 import { Box } from "@mui/material";
 import usePut from "../../hooks/usePut";
 import { cartsActions } from "../../store/states/cartSlice";
-
 const Cart = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
@@ -16,9 +15,8 @@ const Cart = () => {
   // to find cart
   const carts: CartsType = useSelector((state: any) => state.carts.carts);
   const cart: any = carts?.find((c) => c.id === Number(id));
-  // get products Cart
-  const products = cart?.attributes?.products?.data || [];
-  // console.log(products[0]);
+
+  // inline edit
   const [cartName, setCartName] = useState(cart?.attributes.name);
   const oldName = useRef(cartName);
   const handleChangeName = async () => {
@@ -43,6 +41,20 @@ const Cart = () => {
       throw new Error("Failed to post data");
     }
   };
+  const cartProducts: CartProduct[] = useSelector(
+    (state: any) => state.cartProducts.cartProducts
+  );
+
+  const [matchingCarts, setMatchingCarts] = useState(cartProducts);
+  useEffect(() => {
+    // get carts matching cart id
+    const newCarts = cartProducts?.filter(
+      (cartProd) => cartProd?.attributes.cart.data.id === (id ? +id : -1)
+    );
+    setMatchingCarts(newCarts)
+    // console.log(matchingCarts);
+  }, [cartProducts, id]);
+
   return (
     <>
       <section>
@@ -58,18 +70,19 @@ const Cart = () => {
           />
         </Box>
         {cart?.attributes.desc && (
-          <article style={{margin: "15px 0"}}>
+          <article style={{ margin: "15px 0" }}>
             <p>{cart?.attributes.desc}</p>
           </article>
         )}
-        {!products.length ? (
+        {!matchingCarts?.length ? (
           <p>
             Oops! It seems that your cart is empty. Start adding products to
             your cart to make a purchase. Browse through our selection and click
             the "Add to Cart" button to get started.
           </p>
         ) : (
-          <ProductsTable products={products} />
+          // <p>found</p>
+          <ProductsTable cartsProducts={matchingCarts} />
         )}
       </section>
     </>
