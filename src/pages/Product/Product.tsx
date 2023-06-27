@@ -3,16 +3,17 @@ import { useParams } from "react-router-dom";
 import SectionHeading from "../Components/SectionHeading/SectionHeading";
 import "./product-page.css";
 import { SyntheticEvent, useState } from "react";
+import { Image } from "../../types/types";
 
 const ProductPage = () => {
   const { id } = useParams();
   const products = useSelector((state: any) => state.products.products);
   let product: any = null;
   if (id) product = products?.find((p: any) => p.id === +id) || null;
-  const images = product?.attributes.images.data?.map((img: any) => {
+  const images = product?.attributes.images?.data?.map((img: Image) => {
     return "http://localhost:1337" + img.attributes.url;
   });
-  const [bigImg, setBigImg] = useState(images[0]);
+  const [bigImg, setBigImg] = useState(images ? images[0] : null);
   const handleChangeImg = (e: SyntheticEvent<HTMLImageElement>) => {
     setBigImg(e.currentTarget.src);
   };
@@ -24,6 +25,9 @@ const ProductPage = () => {
   const categoryName = category.data?.attributes.name;
   if (!product?.attributes)
     return <SectionHeading position="center" text="Not Found" />;
+
+  if (images === undefined)
+    return <SectionHeading position="center" text="This product not have images to show" />;
 
   return (
     <>

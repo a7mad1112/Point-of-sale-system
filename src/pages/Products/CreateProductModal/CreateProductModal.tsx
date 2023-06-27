@@ -33,7 +33,8 @@ const CreateProductModal: React.FC<CreateProductModalProps> = ({
   setIsShow,
 }) => {
   const closeModal = () => setIsShow(false);
-  const URL = "http://localhost:1337/api/products1?pagination[limit]=-1&populate=*";
+  const URL =
+    "http://localhost:1337/api/products1?pagination[limit]=-1&populate=*";
   const dispatch = useDispatch();
   const formik = useFormik({
     initialValues: initialValues,

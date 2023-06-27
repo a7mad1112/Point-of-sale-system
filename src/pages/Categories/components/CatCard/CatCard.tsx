@@ -26,7 +26,6 @@ const CatCard = ({ category }: { category: Category }) => {
       }
       const data = await res.json();
       dispatch(categoryActions.setCategories(data.data));
-      console.log(data.data);
     } catch (error) {
       throw new Error("Failed to post data");
     }

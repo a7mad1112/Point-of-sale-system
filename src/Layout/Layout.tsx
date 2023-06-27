@@ -7,7 +7,6 @@ const Layout = () => {
       <SideBar>
         <Routers />
       </SideBar>
-      {/* <Footer /> */}
     </>
   );
 };

@@ -38,7 +38,6 @@ const EditCategoryModal = ({ setIsShow, URL }: EditCategoryModalProps) => {
           throw new Error(res.statusText);
         }
         const data = await res.json();
-        console.log(data.data);
         dispatch(categoryActions.setCategories(data.data));
       } catch (error) {
         throw new Error("Failed to post data");

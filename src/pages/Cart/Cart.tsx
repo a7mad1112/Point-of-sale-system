@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Params } from "react-router-dom";
 import { CartsType, CartProduct } from "../../types/types";
 import ProductsTable from "./Components/ProductsTable/ProductsTable";
 import { Box, Button } from "@mui/material";
@@ -8,7 +8,7 @@ import usePut from "../../hooks/usePut";
 import { cartsActions } from "../../store/states/cartSlice";
 import "./cart.css";
 const Cart = () => {
-  const { id } = useParams();
+  const { id }: Readonly<Params<string>> = useParams();
   const dispatch = useDispatch();
   const { putData } = usePut(
     `http://localhost:1337/api/carts1/${id}?populate=*`
@@ -32,7 +32,8 @@ const Cart = () => {
 
     await putData(data);
 
-    const URL = "http://localhost:1337/api/carts1?pagination[limit]=-1&populate=*"
+    const URL =
+      "http://localhost:1337/api/carts1?pagination[limit]=-1&populate=*";
     try {
       const res = await fetch(URL);
       const data = await res.json();
@@ -46,14 +47,17 @@ const Cart = () => {
     (state: any) => state.cartProducts.cartProducts
   );
 
-  const [matchingCarts, setMatchingCarts] = useState(cartProducts);
+  // find carts belong to the actual cart
+  const [matchingCarts, setMatchingCarts] = useState<CartProduct[]>([]);
   useEffect(() => {
-    // get carts matching cart id
+    if (id) {
+      const newCarts = cartProducts?.filter((cartProd) => {
+        const cartData = cartProd?.attributes.cart?.data;
+        return cartData && cartData.id === +id;
+      });
 
-    const newCarts = cartProducts?.filter(
-      (cartProd) => cartProd?.attributes.cart.data.id === (id ? +id : -1)
-    );
-    setMatchingCarts(newCarts);
+      setMatchingCarts(newCarts || []);
+    }
   }, [cartProducts, id]);
   // handle discount and tax
   const [discount, setDiscount] = useState(0);

@@ -44,8 +44,8 @@ const EditProductModal: React.FC<EditProductModalProps> = ({
           name: values.name,
           code: values.code,
           price: values.price,
-          category: values.category,
-          unit_of_measure: values.unit_of_measure,
+          category: values.category?.data?.id,
+          unit_of_measure: values.unit_of_measure?.data?.id,
         })
       );
       // send updated product
@@ -60,9 +60,12 @@ const EditProductModal: React.FC<EditProductModalProps> = ({
       }
       // get updated products
       try {
-        const res = await fetch("http://localhost:1337/api/unit-of-measures1?pagination[limit]=-1", {
-          method: "GET",
-        });
+        const res = await fetch(
+          "http://localhost:1337/api/products1?pagination[limit]=-1&populate=*",
+          {
+            method: "GET",
+          }
+        );
         const data = await res.json();
         dispatch(productsActions.setProducts(data.data));
       } catch (error) {
@@ -138,7 +141,6 @@ const EditProductModal: React.FC<EditProductModalProps> = ({
             name="category"
             id="category"
             onChange={formik.handleChange}
-            // value={formik.values.category}
             value={formik.values.category?.data?.id}
             onBlur={formik.handleBlur}
           >

@@ -31,7 +31,7 @@ const CreateCategoryModal = ({ setIsShow }: CreateCategoryModalProps) => {
         },
       };
       closeModal();
-      postData(data);
+      await postData(data);
       // use useFetch here
       try {
         const res = await fetch(url + "?pagination[limit]=-1");

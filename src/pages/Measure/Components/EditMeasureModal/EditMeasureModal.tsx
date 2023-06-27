@@ -37,7 +37,7 @@ const EditMeasureModal = ({ measure, setEditModal }: EditMeasureModalProps) => {
     },
     validationSchema,
     onSubmit: async (values) => {
-      const data = {
+      const payload = {
         data: {
           name: values.measure,
           Conversion_factor: values.Conversion_factor,
@@ -45,14 +45,13 @@ const EditMeasureModal = ({ measure, setEditModal }: EditMeasureModalProps) => {
         },
       };
       closeModal();
-      putData(data);
+      await putData(payload);
       try {
-        const res = await fetch(URL);
+        const res = await fetch("http://localhost:1337/api/unit-of-measures1?pagination[limit]=-1");
         if (!res.ok) {
           throw new Error(res.statusText);
         }
         const data = await res.json();
-        console.log(data.data)
         dispatch(measuresActions.setMeasures(data.data));
       } catch (error) {
         throw new Error("Failed to update data");

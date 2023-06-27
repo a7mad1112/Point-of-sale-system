@@ -40,12 +40,12 @@ const AddToCartModal: React.FC<AddToCartModalProps> = ({
     onSubmit: async (values) => {
       // we need to check if exist in cart with same product id then increase quantity
       // otherwise post request
-      // const isMatchedCart =
       const matchingCarts = cartProducts.filter(
         (cartProd) => cartProd?.attributes.cart.data.id === +values.cart
       );
       const foundCart = matchingCarts.find(
-        (cartProd) => +cartProd?.attributes.product.data.id === +selectedProductId
+        (cartProd) =>
+          +cartProd?.attributes.product.data.id === +selectedProductId
       );
       const data = {
         data: {
@@ -56,7 +56,7 @@ const AddToCartModal: React.FC<AddToCartModalProps> = ({
       };
 
       if (foundCart === undefined) {
-        postData(data);
+        await postData(data);
       } else {
         const putData = {
           data: {
@@ -65,7 +65,7 @@ const AddToCartModal: React.FC<AddToCartModalProps> = ({
         };
         try {
           await fetch(
-            `http://localhost:1337/api/carts-products1/${foundCart?.id}?populate=*`,
+            `http://localhost:1337/api/carts-products1/${foundCart?.id}`,
             {
               method: "PUT",
               headers: {
@@ -80,7 +80,9 @@ const AddToCartModal: React.FC<AddToCartModalProps> = ({
       }
       // re fetch data to store it in our redux store
       try {
-        const res = await fetch("http://localhost:1337/api/carts-products1?pagination[limit]=-1&populate=*");
+        const res = await fetch(
+          "http://localhost:1337/api/carts-products1?pagination[limit]=-1&populate=*"
+        );
         const data = await res.json();
         dispatch(cartProductsActions.setCartProducts(data.data));
       } catch (error) {

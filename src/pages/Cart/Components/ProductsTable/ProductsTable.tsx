@@ -6,7 +6,6 @@ type ProductsTableProps = {
 };
 
 const ProductsTable: React.FC<ProductsTableProps> = ({ cartsProducts }) => {
-  // console.log(cartsProducts)
   return (
     <div className="measures-table">
       <table className="table">

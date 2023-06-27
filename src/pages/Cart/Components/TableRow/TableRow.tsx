@@ -22,7 +22,6 @@ const TableRow: React.FC<ProductsRowProps> = ({ cartProduct }) => {
   const { putData } = usePut(PUT_DELETE_URL);
   const dispatch = useDispatch();
   const updateQuantity = async (quantity: number) => {
-    // console.log("new value " + quantity);
     const payload = {
       data: {
         quantity,
@@ -42,7 +41,7 @@ const TableRow: React.FC<ProductsRowProps> = ({ cartProduct }) => {
   const storeData = async () => {
     try {
       const res = await fetch(
-        "http://localhost:1337/api/carts-products1?populate=*"
+        "http://localhost:1337/api/carts-products1?pagination[limit]=-1&populate=*"
       );
       const data = await res.json();
       dispatch(cartProductsActions.setCartProducts(data.data));

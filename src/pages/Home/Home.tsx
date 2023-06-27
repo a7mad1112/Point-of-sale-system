@@ -45,7 +45,8 @@ function Home() {
       categoryMatch = true;
     else categoryMatch = false;
 
-    const searchTermMatch = searchTerm === "" || productName.includes(searchTerm);
+    const searchTermMatch =
+      searchTerm === "" || productName.includes(searchTerm);
 
     return categoryMatch && searchTermMatch;
   });
@@ -159,7 +160,10 @@ function Home() {
             <Autocomplete
               freeSolo
               disableClearable
-              options={filteredProducts?.map((prod) => prod.attributes.name)}
+              options={filteredProducts?.map((prod, index) => ({
+                key: prod.id,
+                label: typeof prod === "string" ? prod : prod.attributes.name,
+              }))}
               renderInput={(params) => (
                 <TextField
                   {...params}

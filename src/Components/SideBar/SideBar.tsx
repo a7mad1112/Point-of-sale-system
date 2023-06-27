@@ -16,7 +16,7 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import Logo from "../logo/Logo";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { AiFillHome } from "react-icons/ai";
 import { FiShoppingBag, FiShoppingCart } from "react-icons/fi";
 import { FiDollarSign } from "react-icons/fi";
@@ -108,7 +108,7 @@ export default function SideBar({ children }: SideBarProps) {
   const handleDrawerClose = () => {
     setOpen(false);
   };
-
+  // list of pages links
   const links = [
     {
       text: "Home",
@@ -135,7 +135,7 @@ export default function SideBar({ children }: SideBarProps) {
   const navigate = useNavigate();
   const [activeItem, setActiveItem] = React.useState(0); // Index of the active item
 
-  // if user refresh the page then the active item will the default
+  // if user refresh the page then the active item will be home by default
   // so we need to set it to the active from the path
   React.useEffect(() => {
     const activeIndex = links.findIndex((item) => item.path === location.pathname);

@@ -35,13 +35,24 @@ const CreateCartModal: React.FC<CreateCartModalProps> = ({ setIsShow }) => {
       };
       closeModal();
       await postData(data);
-      try {
-        const res = await fetch(URL);
-        const data = await res.json();
-        dispatch(cartsActions.setCarts(data.data));
-      } catch (error) {
-        throw new Error("Failed to post data");
+      // after delete the item, we need te reset our state
+    const URL =
+      "http://localhost:1337/api/carts1?pagination[limit]=-1&populate=*";
+    try {
+      const res = await fetch(URL);
+      const response = await res.json();
+      const allCarts: any = response.data;
+      // we don't need completed carts[checkout carts], so will filter them
+      let filteredCarts = [];
+      if (allCarts) {
+        filteredCarts = allCarts.filter(
+          (cart: any) => !cart.attributes.completed
+        );
       }
+      dispatch(cartsActions.setCarts(filteredCarts));
+    } catch (error) {
+      throw new Error("Failed to post data");
+    }
     },
   });
 
