@@ -1,4 +1,10 @@
-import { Routes, Route, useLocation } from "react-router-dom";
+import {
+  Routes,
+  Route,
+  useLocation,
+  Navigate,
+  useParams,
+} from "react-router-dom";
 import Home from "../pages/Home/Home";
 import Cart from "../pages/Cart/Cart";
 import Categories from "../pages/Categories/Categories";
@@ -15,6 +21,7 @@ import { categoryActions } from "../store/states/categoriesSlice";
 import { measuresActions } from "../store/states/measuresSlice";
 import ProductPage from "../pages/Product/Product";
 import { Helmet, HelmetProvider } from "react-helmet-async";
+import { CartType, Product } from "../types/types";
 export const Routers = () => {
   // fetch data[categories, measures, products]
   const dispatch = useDispatch();
@@ -115,6 +122,44 @@ export const Routers = () => {
     }
   };
 
+  // if the id valid then show productPage, otherwise return to Products Page
+  const ValidProductPage = () => {
+    const { id } = useParams();
+    const productId = Number(id);
+  
+    const isValidProduct = (productId: number) => {
+      const foundProduct: Product | undefined = ((productsRes?.data?.data || []) as Product[]).find(
+        (product: Product) => product.id === productId
+      );
+      return !!foundProduct;
+    };
+  
+    if (!isValidProduct(productId)) {
+      return <Navigate to="/products" replace />;
+    }
+  
+    return <ProductPage />;
+  };
+
+  // component return cart page if id exist, otherwise go back
+  const ValidCartPage = () => {
+    const { id } = useParams();
+    const cartId = Number(id);
+  
+    const isValidCart = (cartId: number) => {
+      const foundCart: CartType | undefined = ((cartsRes?.data?.data || []) as CartType[]).find(
+        (cart: CartType) => cart.id === cartId
+      );
+      return foundCart;
+    };
+    
+    if (!isValidCart(cartId)) {
+      return <Navigate to="/" replace />;
+    }
+
+    return <Cart />;
+  };
+
   return (
     <HelmetProvider>
       <Helmet>
@@ -123,11 +168,11 @@ export const Routers = () => {
       </Helmet>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/cart/:id" element={<Cart />} />
+        <Route path="/cart/:id" element={<ValidCartPage />} />
         <Route path="/categories" element={<Categories />} />
         <Route path="/measure" element={<Measure />} />
         <Route path="/products" element={<Products />} />
-        <Route path="/products/:id" element={<ProductPage />} />
+        <Route path="/products/:id" element={<ValidProductPage />} />
       </Routes>
     </HelmetProvider>
   );
