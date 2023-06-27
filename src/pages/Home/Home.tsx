@@ -8,6 +8,7 @@ import { useState, ChangeEvent } from "react";
 import CreateCartModal from "./Components/CreateCartModal/CreateCartModal";
 import ProductCard from "./Components/ProductCard/ProductCard";
 import AddToCartModal from "./Components/AddToCartModal/AddToCartModal";
+import "./home.css";
 function Home() {
   const carts: CartsType = useSelector((state: any) => state.carts.carts);
   const products: Products = useSelector(
@@ -69,21 +70,33 @@ function Home() {
                 carts, providing you with a flexible and efficient checkout
                 process. Here are the key features and actions available to you:
               </p>
-              <ul>
+              <ul className="cart-ul">
                 <li>
-                  Create Carts: Initiate new carts for different customers or
-                  transactions, each with a unique identifier. This allows you
-                  to handle multiple transactions simultaneously.
+                  Create Carts:
+                  &nbsp;
+                  <span>
+                    Initiate new carts for different customers or transactions,
+                    each with a unique identifier. This allows you to handle
+                    multiple transactions simultaneously.
+                  </span>
                 </li>
                 <li>
-                  Edit Carts: Modify the contents of each cart as needed. Add or
-                  remove products, adjust quantities, and update cart details to
-                  accurately reflect the customer's purchase.
+                  Edit Carts:
+                  &nbsp;
+                  <span>
+                    Modify the contents of each cart as needed. Add or remove
+                    products, adjust quantities, and update cart details to
+                    accurately reflect the customer's purchase.
+                  </span>
                 </li>
                 <li>
-                  Delete Carts: Remove unnecessary or abandoned carts from the
-                  system to keep your workspace organized and focused on active
-                  transactions.
+                  Delete Carts: 
+                  &nbsp;
+                  <span>
+                    Remove unnecessary or abandoned carts from the system to
+                    keep your workspace organized and focused on active
+                    transactions.
+                  </span>
                 </li>
               </ul>
 

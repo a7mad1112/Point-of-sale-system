@@ -1,0 +1,9 @@
+.cart-ul li {
+  color: var(--red-color);
+  font-weight: 700;
+}
+
+.cart-ul li span:last-child {
+  font-weight: normal;
+  color: var(--black-color);
+}

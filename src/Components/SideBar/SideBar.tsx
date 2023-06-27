@@ -132,6 +132,13 @@ export default function SideBar({ children }: SideBarProps) {
     },
   ];
 
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
   const navigate = useNavigate();
   const [activeItem, setActiveItem] = React.useState(0); // Index of the active item
 
@@ -176,6 +183,7 @@ export default function SideBar({ children }: SideBarProps) {
         <List>
           {links.map((item, index) => (
             <ListItem
+              onClickCapture={scrollToTop}
               disablePadding
               sx={{
                 display: "block",
