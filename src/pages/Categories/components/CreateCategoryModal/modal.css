@@ -1,15 +1,20 @@
-
-
 .form-group {
   display: flex;
   flex-direction: column;
-  margin-top: 15px;
+  margin-bottom: 20px;
   justify-content: flex-start;
+}
+
+.textfield-label {
+  color: var(--black-color) !important;
 }
 
 .form-group label {
   font-weight: bold;
   margin-bottom: 5px;
+}
+input {
+  background-color: #fff !important;
 }
 textarea,
 input,
@@ -30,16 +35,17 @@ form {
   background-color: var(--gray-color);
   width: 450px;
   padding: 25px;
+  padding-top: 50px;
   position: fixed;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); 
-  background-image: linear-gradient(90deg,var(--yellow-color),var(--red-color));
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  background-image: linear-gradient(90deg, #F0F0F0, #EDEDED);
 }
 
 form .close-btn {
-  color: var(--yellow-color);
+  color: var(--red-color);
   font-size: 25px;
   font-weight: bold;
   position: absolute;
@@ -54,13 +60,13 @@ form .close-btn {
   font-weight: bold;
   font-size: 17px;
   cursor: pointer;
-  background-color: var(--gray-color);
+  background-color: #2196F3
 }
 
 p.field-err {
-  margin-top: 3px;
   color: var(--red-color);
   font-weight: 700;
+  font-size: 12px;
 }
 
 textarea {

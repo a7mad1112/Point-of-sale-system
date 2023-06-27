@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import { MeasuresType, CategoriesType } from "../../../types/types";
 import { useDispatch } from "react-redux";
 import { productsActions } from "../../../store/states/productsSlice";
+import { Button, TextField } from "@mui/material";
 
 type CreateProductModalProps = {
   setIsShow: React.Dispatch<React.SetStateAction<boolean>>;
@@ -99,8 +100,14 @@ const CreateProductModal: React.FC<CreateProductModalProps> = ({
           <IoCloseOutline />
         </i>
         <div className="form-group">
-          <label htmlFor="name">Product Name</label>
-          <input
+          <TextField
+            variant="outlined"
+            color="secondary"
+            size="small"
+            required
+            label="Product Name"
+            InputLabelProps={{ className: "textfield-label" }}
+            className="textfield"
             type="text"
             name="name"
             id="name"
@@ -113,8 +120,14 @@ const CreateProductModal: React.FC<CreateProductModalProps> = ({
           )}
         </div>
         <div className="form-group">
-          <label htmlFor="code">Product Code</label>
-          <input
+          <TextField
+            variant="outlined"
+            color="secondary"
+            size="small"
+            required
+            label="Product Code"
+            InputLabelProps={{ className: "textfield-label" }}
+            className="textfield"
             type="text"
             name="code"
             id="code"
@@ -127,8 +140,14 @@ const CreateProductModal: React.FC<CreateProductModalProps> = ({
           )}
         </div>
         <div className="form-group">
-          <label htmlFor="price">Product Price</label>
-          <input
+          <TextField
+            variant="outlined"
+            color="secondary"
+            size="small"
+            required
+            label="Product Price"
+            InputLabelProps={{ className: "textfield-label" }}
+            className="textfield"
             type="number"
             name="price"
             id="price"
@@ -140,6 +159,7 @@ const CreateProductModal: React.FC<CreateProductModalProps> = ({
             <p className="field-err">{formik.errors.price}</p>
           )}
         </div>
+
         <div className="form-group">
           <label htmlFor="category">Category</label>
           <select
@@ -199,7 +219,9 @@ const CreateProductModal: React.FC<CreateProductModalProps> = ({
           />
         </div>
         <div className="form-group">
-          <button type="submit">Create</button>
+          <Button type="submit" variant="contained" color="primary">
+            Create
+          </Button>
         </div>
       </form>
     </div>

@@ -1,4 +1,6 @@
-import { Autocomplete, Box, Button, TextField } from "@mui/material";
+import { InputAdornment, Box, Button, TextField } from "@mui/material";
+import SearchIcon from "@mui/icons-material/Search";
+
 import SectionHeading from "../Components/SectionHeading/SectionHeading";
 import cashierImg from "../../assets/Cashier.png";
 import { CartsType, CategoriesType, Products } from "../../types/types";
@@ -72,8 +74,7 @@ function Home() {
               </p>
               <ul className="cart-ul">
                 <li>
-                  Create Carts:
-                  &nbsp;
+                  Create Carts: &nbsp;
                   <span>
                     Initiate new carts for different customers or transactions,
                     each with a unique identifier. This allows you to handle
@@ -81,8 +82,7 @@ function Home() {
                   </span>
                 </li>
                 <li>
-                  Edit Carts:
-                  &nbsp;
+                  Edit Carts: &nbsp;
                   <span>
                     Modify the contents of each cart as needed. Add or remove
                     products, adjust quantities, and update cart details to
@@ -90,8 +90,7 @@ function Home() {
                   </span>
                 </li>
                 <li>
-                  Delete Carts: 
-                  &nbsp;
+                  Delete Carts: &nbsp;
                   <span>
                     Remove unnecessary or abandoned carts from the system to
                     keep your workspace organized and focused on active
@@ -170,24 +169,21 @@ function Home() {
         >
           <Box flex={1} minWidth={300} margin="auto" p={2}>
             {/* search element */}
-            <Autocomplete
-              freeSolo
-              disableClearable
-              options={filteredProducts?.map((prod, index) => ({
-                key: prod.id,
-                label: typeof prod === "string" ? prod : prod.attributes.name,
-              }))}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  label="I'm Looking for..."
-                  InputProps={{
-                    ...params.InputProps,
-                    type: "search",
-                    onChange: handleSearch,
-                  }}
-                />
-              )}
+            <TextField
+              variant="outlined"
+              color="secondary"
+              size="small"
+              label="I'm Looking for..."
+              type="search"
+              fullWidth
+              onChange={handleSearch}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <SearchIcon />
+                  </InputAdornment>
+                ),
+              }}
             />
           </Box>
           {/* categories for filter */}

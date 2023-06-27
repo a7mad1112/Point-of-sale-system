@@ -4,7 +4,7 @@ import * as Yup from "yup";
 import { useDispatch } from "react-redux";
 import { categoryActions } from "../../../../store/states/categoriesSlice";
 import usePut from "../../../../hooks/usePut";
-import { CategoriesType } from "../../../../types/types";
+import { TextField, Button } from "@mui/material";
 const validationSchema = Yup.object({
   category: Yup.string().required("Category is required"),
 });
@@ -33,7 +33,9 @@ const EditCategoryModal = ({ setIsShow, URL }: EditCategoryModalProps) => {
       };
       await putData(data);
       try {
-        const res = await fetch("http://localhost:1337/api/categories1?pagination[limit]=-1");
+        const res = await fetch(
+          "http://localhost:1337/api/categories1?pagination[limit]=-1"
+        );
         if (!res.ok) {
           throw new Error(res.statusText);
         }
@@ -57,8 +59,14 @@ const EditCategoryModal = ({ setIsShow, URL }: EditCategoryModalProps) => {
           <IoCloseOutline />
         </i>
         <div className="form-group">
-          <label htmlFor="category">New Name</label>
-          <input
+          <TextField
+            variant="outlined"
+            color="secondary"
+            size="small"
+            required
+            label="Category Name"
+            InputLabelProps={{ className: "textfield-label" }}
+            className="textfield"
             type="text"
             name="category"
             id="category"
@@ -66,12 +74,14 @@ const EditCategoryModal = ({ setIsShow, URL }: EditCategoryModalProps) => {
             value={formik.values?.category}
             onBlur={formik.handleBlur}
           />
+          {formik.errors.category && formik.touched.category && (
+            <p className="field-err">{formik.errors.category}</p>
+          )}
         </div>
-        {formik.errors.category && formik.touched.category && (
-          <p className="field-err">{formik.errors.category}</p>
-        )}
         <div className="form-group">
-          <button type="submit">Update</button>
+          <Button type="submit" variant="contained" color="primary">
+            Update
+          </Button>
         </div>
       </form>
     </div>

@@ -5,6 +5,8 @@ import * as Yup from "yup";
 import { useSelector, useDispatch } from "react-redux";
 import { MeasuresType, CategoriesType, Product } from "../../../types/types";
 import { productsActions } from "../../../store/states/productsSlice";
+import { TextField } from "@mui/material";
+import usePut from "../../../hooks/usePut";
 
 type EditProductModalProps = {
   setIsShow: React.Dispatch<React.SetStateAction<boolean>>;
@@ -26,6 +28,7 @@ const EditProductModal: React.FC<EditProductModalProps> = ({
   const closeModal = () => setIsShow(false);
   const URL = `http://localhost:1337/api/products1/${selectedProduct?.id}?populate=*`;
   const dispatch = useDispatch();
+  const { putData } = usePut(URL);
   const formik = useFormik({
     initialValues: {
       name: selectedProduct?.attributes.name,
@@ -37,24 +40,20 @@ const EditProductModal: React.FC<EditProductModalProps> = ({
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
-      const formData = new FormData();
-      formData.append(
-        "data",
-        JSON.stringify({
-          name: values.name,
-          code: values.code,
-          price: values.price,
-          category: values.category?.data?.id,
-          unit_of_measure: values.unit_of_measure?.data?.id,
-        })
-      );
       // send updated product
       try {
-        await fetch(URL, {
-          method: "PUT",
-          body: formData,
-          headers: {},
-        });
+        const payload = {
+          data: {
+            name: values.name,
+            code: values.code,
+            price: values.price,
+            category: values.category ? +values.category : null,
+            unit_of_measure: values.unit_of_measure
+              ? +values.unit_of_measure
+              : null,
+          },
+        };
+        await putData(payload);
       } catch (error) {
         console.error("Failed to update data:", error);
       }
@@ -94,8 +93,14 @@ const EditProductModal: React.FC<EditProductModalProps> = ({
           <IoCloseOutline />
         </i>
         <div className="form-group">
-          <label htmlFor="name">Product Name</label>
-          <input
+          <TextField
+            variant="outlined"
+            color="secondary"
+            size="small"
+            required
+            label="Product Name"
+            InputLabelProps={{ className: "textfield-label" }}
+            className="textfield"
             type="text"
             name="name"
             id="name"
@@ -108,8 +113,14 @@ const EditProductModal: React.FC<EditProductModalProps> = ({
           )}
         </div>
         <div className="form-group">
-          <label htmlFor="code">Product Code</label>
-          <input
+          <TextField
+            variant="outlined"
+            color="secondary"
+            size="small"
+            required
+            label="Product Code"
+            InputLabelProps={{ className: "textfield-label" }}
+            className="textfield"
             type="text"
             name="code"
             id="code"
@@ -122,8 +133,14 @@ const EditProductModal: React.FC<EditProductModalProps> = ({
           )}
         </div>
         <div className="form-group">
-          <label htmlFor="price">Product Price</label>
-          <input
+          <TextField
+            variant="outlined"
+            color="secondary"
+            size="small"
+            required
+            label="Product Price"
+            InputLabelProps={{ className: "textfield-label" }}
+            className="textfield"
             type="number"
             name="price"
             id="price"

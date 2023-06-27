@@ -9,9 +9,8 @@ import Home from "../pages/Home/Home";
 import Cart from "../pages/Cart/Cart";
 import Categories from "../pages/Categories/Categories";
 import Measure from "../pages/Measure/Measure";
-import Products from "../pages/Products/Products";
 import useFetch from "../hooks/useFetch";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import Loader from "../pages/Components/Loader/Loader";
 import { cartProductsActions } from "../store/states/cartProductsSlice";
@@ -21,7 +20,13 @@ import { categoryActions } from "../store/states/categoriesSlice";
 import { measuresActions } from "../store/states/measuresSlice";
 import ProductPage from "../pages/Product/Product";
 import { Helmet, HelmetProvider } from "react-helmet-async";
-import { CartType, Product } from "../types/types";
+import {
+  CartType,
+  CartsType,
+  Product,
+  Products as ProductsType,
+} from "../types/types";
+import Products from "../pages/Products/Products";
 export const Routers = () => {
   // fetch data[categories, measures, products]
   const dispatch = useDispatch();
@@ -84,6 +89,11 @@ export const Routers = () => {
     cartProductsRes.loading,
   ];
   const location = useLocation();
+  const carts: CartsType = useSelector((state: any) => state.carts.carts);
+  const products: ProductsType = useSelector(
+    (state: any) => state.products.products
+  );
+
   if (loading.some((l) => l === true))
     return (
       <div className="loading-container">
@@ -126,18 +136,18 @@ export const Routers = () => {
   const ValidProductPage = () => {
     const { id } = useParams();
     const productId = Number(id);
-  
+
     const isValidProduct = (productId: number) => {
-      const foundProduct: Product | undefined = ((productsRes?.data?.data || []) as Product[]).find(
-        (product: Product) => product.id === productId
-      );
+      const foundProduct: Product | undefined = (
+        (products || []) as Product[]
+      ).find((product: Product) => product.id === productId);
       return !!foundProduct;
     };
-  
+
     if (!isValidProduct(productId)) {
       return <Navigate to="/products" replace />;
     }
-  
+
     return <ProductPage />;
   };
 
@@ -145,14 +155,14 @@ export const Routers = () => {
   const ValidCartPage = () => {
     const { id } = useParams();
     const cartId = Number(id);
-  
+
     const isValidCart = (cartId: number) => {
-      const foundCart: CartType | undefined = ((cartsRes?.data?.data || []) as CartType[]).find(
-        (cart: CartType) => cart.id === cartId
-      );
+      const foundCart: CartType | undefined = (
+        (carts || []) as CartType[]
+      ).find((cart: CartType) => cart.id === cartId);
       return foundCart;
     };
-    
+
     if (!isValidCart(cartId)) {
       return <Navigate to="/" replace />;
     }

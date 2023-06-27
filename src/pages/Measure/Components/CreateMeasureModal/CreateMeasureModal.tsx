@@ -4,6 +4,8 @@ import * as Yup from "yup";
 import usePost from "../../../../hooks/usePost";
 import { useDispatch } from "react-redux";
 import { measuresActions } from "../../../../store/states/measuresSlice";
+import { Button } from "@mui/material";
+import { TextField } from "@mui/material";
 const validationSchema = Yup.object({
   measure: Yup.string().required("Measure is required"),
   Conversion_factor: Yup.number().required("Conversion factor is required"),
@@ -21,7 +23,9 @@ type CreateMeasureModalProps = {
 };
 
 const CreateMeasureModal = ({ setIsShow }: CreateMeasureModalProps) => {
-  const closeModal = () =>{ setIsShow(false)};
+  const closeModal = () => {
+    setIsShow(false);
+  };
   const URL =
     "http://localhost:1337/api/unit-of-measures1?pagination[limit]=-1";
   const { postData } = usePost(URL);
@@ -62,9 +66,16 @@ const CreateMeasureModal = ({ setIsShow }: CreateMeasureModalProps) => {
           <IoCloseOutline />
         </i>
         {/* === measure name ===  */}
+
         <div className="form-group">
-          <label htmlFor="measure">Measure Name</label>
-          <input
+          <TextField
+            variant="outlined"
+            color="secondary"
+            size="small"
+            required
+            label="Measure Name"
+            InputLabelProps={{ className: "textfield-label" }}
+            className="textfield"
             type="text"
             name="measure"
             id="measure"
@@ -72,14 +83,20 @@ const CreateMeasureModal = ({ setIsShow }: CreateMeasureModalProps) => {
             value={formik.values?.measure}
             onBlur={formik.handleBlur}
           />
+          {formik.errors.measure && formik.touched.measure && (
+            <p className="field-err">{formik.errors.measure}</p>
+          )}
         </div>
-        {formik.errors.measure && formik.touched.measure && (
-          <p className="field-err">{formik.errors.measure}</p>
-        )}
         {/* === conversion factor ===  */}
         <div className="form-group">
-          <label htmlFor="Conversion_factor">Conversion Factor</label>
-          <input
+          <TextField
+            variant="outlined"
+            color="secondary"
+            size="small"
+            required
+            label="Conversion Factor"
+            InputLabelProps={{ className: "textfield-label" }}
+            className="textfield"
             type="number"
             name="Conversion_factor"
             id="Conversion_factor"
@@ -87,15 +104,21 @@ const CreateMeasureModal = ({ setIsShow }: CreateMeasureModalProps) => {
             value={formik.values?.Conversion_factor}
             onBlur={formik.handleBlur}
           />
+          {formik.errors.Conversion_factor &&
+            formik.touched.Conversion_factor && (
+              <p className="field-err">{formik.errors.Conversion_factor}</p>
+            )}
         </div>
-        {formik.errors.Conversion_factor &&
-          formik.touched.Conversion_factor && (
-            <p className="field-err">{formik.errors.Conversion_factor}</p>
-          )}
         {/* === base unit ===  */}
         <div className="form-group">
-          <label htmlFor="base_unit">Base Unit</label>
-          <input
+          <TextField
+            variant="outlined"
+            color="secondary"
+            size="small"
+            required
+            label="Base Unit"
+            InputLabelProps={{ className: "textfield-label" }}
+            className="textfield"
             type="text"
             name="base_unit"
             id="base_unit"
@@ -103,12 +126,14 @@ const CreateMeasureModal = ({ setIsShow }: CreateMeasureModalProps) => {
             value={formik.values?.base_unit}
             onBlur={formik.handleBlur}
           />
+          {formik.errors.base_unit && formik.touched.base_unit && (
+            <p className="field-err">{formik.errors.base_unit}</p>
+          )}
         </div>
-        {formik.errors.base_unit && formik.touched.base_unit && (
-          <p className="field-err">{formik.errors.base_unit}</p>
-        )}
         <div className="form-group">
-          <button type="submit">Create</button>
+          <Button type="submit" variant="contained" color="primary">
+            Create
+          </Button>
         </div>
       </form>
     </div>
