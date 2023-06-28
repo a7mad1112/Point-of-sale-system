@@ -1,6 +1,6 @@
 import { InputAdornment, Box, Button, TextField } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
-
+import ReactPaginate from "react-paginate";
 import SectionHeading from "../Components/SectionHeading/SectionHeading";
 import cashierImg from "../../assets/Cashier.png";
 import { CartsType, CategoriesType, Products } from "../../types/types";
@@ -53,6 +53,20 @@ function Home() {
 
     return categoryMatch && searchTermMatch;
   });
+
+  // pagination
+  const [pageNumber, setPageNumber] = useState(0);
+  const productPerPage = 8;
+  const visitedPage = pageNumber * productPerPage;
+  const productsToShow = filteredProducts.slice(
+    visitedPage,
+    visitedPage + productPerPage
+  );
+  const pageCount = Math.ceil(filteredProducts.length / productPerPage);
+
+  const changePage = ({ selected }: any) => {
+    setPageNumber(selected);
+  };
   return (
     <>
       <section>
@@ -204,7 +218,7 @@ function Home() {
 
         {/* products cards */}
         <div className="products-container">
-          {filteredProducts?.map((product) => (
+          {productsToShow?.map((product) => (
             <ProductCard
               key={product.id}
               product={product}
@@ -212,6 +226,16 @@ function Home() {
               setSelectedProductId={setSelectedProductId}
             />
           ))}
+        </div>
+        <div>
+          <ReactPaginate
+            pageCount={pageCount}
+            onPageChange={changePage}
+            previousLabel="Prev"
+            nextLabel="Next"
+            containerClassName="paginationBtns"
+            activeClassName="active_pagination"
+          />
         </div>
         {showAddToCartModal && (
           <AddToCartModal

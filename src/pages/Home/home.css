@@ -7,3 +7,34 @@
   font-weight: normal;
   color: var(--black-color);
 }
+
+/* pagination */
+.paginationBtns {
+  width: 80%;
+  height: 40px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  column-gap: 0.5rem;
+  list-style: none;
+  margin-top: 50px;
+}
+
+.paginationBtns a {
+  cursor: pointer;
+  padding: 7px 13px;
+  background: var(--red-color);
+  color: #fff !important;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 5px;
+  transition: 0.3s;
+}
+
+.active_pagination a,
+.paginationBtns a:hover {
+  background: var(--yellow-color);
+}
