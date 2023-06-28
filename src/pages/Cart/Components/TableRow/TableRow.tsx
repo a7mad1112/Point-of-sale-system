@@ -7,7 +7,6 @@ type ProductsRowProps = {
   cartProduct: any;
 };
 const TableRow: React.FC<ProductsRowProps> = ({ cartProduct }) => {
-  // console.log(cartProduct.attributes.product.data.attributes);
   const { name: productName, price: productPrice } =
     cartProduct.attributes.product.data.attributes;
   const { quantity: productQuantity } = cartProduct.attributes;
@@ -56,11 +55,11 @@ const TableRow: React.FC<ProductsRowProps> = ({ cartProduct }) => {
         <td>${productPrice}</td>
         <td>
           <div className="quantity">
-            <span id="increment-quantity" onClick={handleIncrement}>
+            <span id="increment-quantity" data-testid="increment-quantity" onClick={handleIncrement}>
               +
             </span>
             <span>{productQuantity}</span>
-            <span id="decrement-quantity" onClick={handleDecrement}>
+            <span id="decrement-quantity" data-testid="decrement-quantity" onClick={handleDecrement}>
               -
             </span>
           </div>

@@ -149,7 +149,7 @@ export default function SideBar({ children }: SideBarProps) {
     setActiveItem(activeIndex !== -1 ? activeIndex : 0);
   }, [location.pathname]);
   return (
-    <Box sx={{ display: "flex" }}>
+    <Box data-testid="sidebar-component" sx={{ display: "flex" }}>
       <CssBaseline />
       <AppBar position="fixed" open={open} sx={{ backgroundColor: "#fff" }}>
         <Toolbar>

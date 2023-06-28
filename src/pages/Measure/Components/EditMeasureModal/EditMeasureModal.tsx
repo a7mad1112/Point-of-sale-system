@@ -140,7 +140,7 @@ const EditMeasureModal = ({ measure, setEditModal }: EditMeasureModalProps) => {
         </div>
         <div className="form-group">
           <Button type="submit" variant="contained" color="primary">
-            Create
+            Update
           </Button>
         </div>
       </form>

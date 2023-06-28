@@ -57,7 +57,7 @@ const CatCard = ({ cart }: { cart: CartType }) => {
         <p>{cart.attributes.name}</p>
         <div className="actions">
           <span className="delete-cat" onClick={showDialog}>
-            <i>
+            <i data-testid='delete-cart'>
               <AiFillDelete />
             </i>
           </span>

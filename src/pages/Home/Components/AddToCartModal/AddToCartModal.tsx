@@ -96,7 +96,7 @@ const AddToCartModal: React.FC<AddToCartModalProps> = ({
       className="overlay"
       onClick={(e) => e.currentTarget === e.target && closeModal()}
     >
-      <form onSubmit={formik.handleSubmit}>
+      <form onSubmit={formik.handleSubmit} data-testid="add-to-cart-from">
         <i className="close-btn" onClick={closeModal}>
           <IoCloseOutline />
         </i>

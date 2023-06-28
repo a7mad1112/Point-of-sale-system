@@ -34,7 +34,7 @@ export interface Product {
     createdAt?: string;
     updatedAt?: string;
     publishedAt?: string;
-    quantity: number;
+    quantity?: number;
     images: {
       data: Image[] | null;
     };
@@ -68,7 +68,7 @@ export interface Image {
     url: string;
     previewUrl: string | null;
     provider: string;
-    provider_metadata: any | null; // Replace `any` with the actual type of provider_metadata
+    provider_metadata: any | null; 
     createdAt: string;
     updatedAt: string;
   };

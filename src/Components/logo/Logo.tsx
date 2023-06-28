@@ -16,6 +16,7 @@ const Logo = () => {
       onClick={scrollToTop}
     >
       <span
+        data-testid="logo-icon"
         className="logo-icon"
         style={{
           color: "var(--red-color)",
