@@ -27,10 +27,12 @@ const usePut = (url: string) => {
   const putData = async (data: PutData) => {
     setLoading(true);
     try {
+      const token = localStorage.getItem("token") || "";
       const res = await fetch(url, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(data),
       });
@@ -43,6 +45,7 @@ const usePut = (url: string) => {
     } catch (error) {
       setError((error as Error).message || "Error updating data");
       setResponse(null);
+      alert(error)
     } finally {
       setLoading(false);
     }

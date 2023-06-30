@@ -28,11 +28,12 @@ const usePost = (url: string) => {
     try {
       setLoading(true);
       setError(null);
-
+      const token = localStorage.getItem("token") || "";
       const res = await fetch(url, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(data),
       });
@@ -44,6 +45,7 @@ const usePost = (url: string) => {
       setResponse(responseData);
     } catch (error) {
       setError((error as Error).message || "Error posting data");
+      alert(error);
     } finally {
       setLoading(false);
     }

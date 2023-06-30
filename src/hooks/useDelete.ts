@@ -13,8 +13,13 @@ const useDelete = (url: string) => {
   const deleteData = async () => {
     setLoading(true);
     try {
+      const token = localStorage.getItem("token") || "";
       const res = await fetch(url, {
         method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
       });
       const data = await res.json();
       if (!res.ok) {
@@ -23,7 +28,8 @@ const useDelete = (url: string) => {
       setResponse(data);
       setError(null);
     } catch (error) {
-      setError((error as Error).message || "Error fetching data")
+      setError((error as Error).message || "Error fetching data");
+      alert(error);
       setResponse(null);
     } finally {
       setLoading(false);

@@ -27,6 +27,8 @@ import {
   Products as ProductsType,
 } from "../types/types";
 import Products from "../pages/Products/Products";
+import Login from "../pages/Login/Login";
+import SectionHeading from "../pages/Components/SectionHeading/SectionHeading";
 export const Routers = () => {
   // fetch data[categories, measures, products]
   const dispatch = useDispatch();
@@ -183,6 +185,7 @@ export const Routers = () => {
         <Route path="/measure" element={<Measure />} />
         <Route path="/products" element={<Products />} />
         <Route path="/products/:id" element={<ValidProductPage />} />
+        <Route path="*" element={<SectionHeading position="center" text="404 Not Found" />} />
       </Routes>
     </HelmetProvider>
   );

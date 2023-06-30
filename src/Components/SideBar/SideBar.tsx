@@ -20,7 +20,9 @@ import { useNavigate } from "react-router-dom";
 import { AiFillHome } from "react-icons/ai";
 import { FiShoppingBag, FiShoppingCart } from "react-icons/fi";
 import { FiDollarSign } from "react-icons/fi";
-import { useLocation } from 'react-router-dom';
+import { useLocation } from "react-router-dom";
+import { Button } from "@mui/material";
+
 const drawerWidth = 240;
 
 const openedMixin = (theme: Theme): CSSObject => ({
@@ -138,14 +140,19 @@ export default function SideBar({ children }: SideBarProps) {
       behavior: "smooth",
     });
   };
-
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    navigate("/login");
+  };
   const navigate = useNavigate();
   const [activeItem, setActiveItem] = React.useState(0); // Index of the active item
 
   // if user refresh the page then the active item will be home by default
   // so we need to set it to the active from the path
   React.useEffect(() => {
-    const activeIndex = links.findIndex((item) => item.path === location.pathname);
+    const activeIndex = links.findIndex(
+      (item) => item.path === location.pathname
+    );
     setActiveItem(activeIndex !== -1 ? activeIndex : 0);
   }, [location.pathname]);
   return (
@@ -221,8 +228,29 @@ export default function SideBar({ children }: SideBarProps) {
           ))}
         </List>
 
-
         <Divider />
+
+        <div
+          className="logout"
+          style={{
+            display: "flex",
+            height: "100%",
+            alignItems: "flex-end",
+            justifyContent: "center",
+            padding: "20px",
+          }}
+        >
+          <Button
+            sx={{
+              backgroundColor: "var(--red-color) !important",
+            }}
+            variant="contained"
+            color="info"
+            onClick={handleLogout}
+          >
+            Logout
+          </Button>
+        </div>
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, px: 7, py: 6 }}>
         {children}

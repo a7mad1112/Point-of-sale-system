@@ -41,11 +41,11 @@ const AddToCartModal: React.FC<AddToCartModalProps> = ({
       // we need to check if exist in cart with same product id then increase quantity
       // otherwise post request
       const matchingCarts = cartProducts.filter(
-        (cartProd) => cartProd?.attributes.cart.data.id === +values.cart
+        (cartProd) => cartProd?.attributes.cart?.data?.id === +values.cart
       );
-      const foundCart = matchingCarts.find(
+      const foundCart = matchingCarts?.find(
         (cartProd) =>
-          +cartProd?.attributes.product.data.id === +selectedProductId
+          cartProd?.attributes?.product?.data?.id === +selectedProductId
       );
       const data = {
         data: {
@@ -64,18 +64,21 @@ const AddToCartModal: React.FC<AddToCartModalProps> = ({
           },
         };
         try {
+          const token = localStorage.getItem("token") || "";
           await fetch(
-            `http://localhost:1337/api/carts-products1/${foundCart?.id}`,
+            `http://localhost:1337/api/carts-products1/${foundCart?.id || -1}`,
             {
               method: "PUT",
               headers: {
                 "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
               },
               body: JSON.stringify(putData),
             }
           );
         } catch (error) {
           console.error("Error occurred while making PUT request:", error);
+          alert(error);
         }
       }
       // re fetch data to store it in our redux store

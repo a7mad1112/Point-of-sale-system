@@ -56,7 +56,6 @@ const CreateProductModal: React.FC<CreateProductModalProps> = ({
       for (let i = 0; i < values.images?.length; i++) {
         formData.append("files.images", values.images[i]);
       }
-      // for (let i = 0; i < values.images?.length; i++) console.log(values.images[i]);
       // send product
       try {
         await fetch(URL, {

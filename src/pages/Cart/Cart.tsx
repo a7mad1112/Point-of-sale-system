@@ -94,7 +94,6 @@ const Cart = () => {
     };
     await putData(payload);
     // re fetch actual carts and filter them:
-    console.log(payload);
     // Navigate to Home page and refresh the website
     navigate("/");
     window.location.reload(); // Refresh the website
