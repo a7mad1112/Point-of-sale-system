@@ -21,8 +21,7 @@ import { AiFillHome } from "react-icons/ai";
 import { FiShoppingBag, FiShoppingCart } from "react-icons/fi";
 import { FiDollarSign } from "react-icons/fi";
 import { useLocation } from "react-router-dom";
-import { Button } from "@mui/material";
-
+import { BiLogOut } from "react-icons/bi";
 const drawerWidth = 240;
 
 const openedMixin = (theme: Theme): CSSObject => ({
@@ -128,8 +127,8 @@ export default function SideBar({ children }: SideBarProps) {
       icon: <FiShoppingCart />,
     },
     {
-      text: "Measure",
-      path: "/measure",
+      text: "Measures",
+      path: "/measures",
       icon: <FiDollarSign />,
     },
   ];
@@ -226,31 +225,38 @@ export default function SideBar({ children }: SideBarProps) {
               </ListItemButton>
             </ListItem>
           ))}
+          <ListItem
+            disablePadding
+            sx={{
+              marginBottom: "0rem",
+              display: "block",
+              color: "var(--red-color) !important",
+              fontWeight: "700",
+            }}
+            onClick={handleLogout}
+          >
+            <ListItemButton
+              sx={{
+                minHeight: 48,
+                justifyContent: open ? "initial" : "center",
+                px: 2.5,
+              }}
+            >
+              <ListItemIcon
+                sx={{
+                  minWidth: 0,
+                  mr: open ? 3 : "auto",
+                  justifyContent: "center",
+                }}
+              >
+                <BiLogOut />
+              </ListItemIcon>
+              <ListItemText primary="Logout" sx={{ opacity: open ? 1 : 0 }} />
+            </ListItemButton>
+          </ListItem>
         </List>
 
         <Divider />
-
-        <div
-          className="logout"
-          style={{
-            display: "flex",
-            height: "100%",
-            alignItems: "flex-end",
-            justifyContent: "center",
-            padding: "20px",
-          }}
-        >
-          <Button
-            sx={{
-              backgroundColor: "var(--red-color) !important",
-            }}
-            variant="contained"
-            color="info"
-            onClick={handleLogout}
-          >
-            Logout
-          </Button>
-        </div>
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, px: 7, py: 6 }}>
         {children}

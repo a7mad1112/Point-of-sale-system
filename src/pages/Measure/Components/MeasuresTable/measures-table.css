@@ -1,6 +1,6 @@
 .measures-table {
-  overflow-x: auto;
   border-radius: 4px;
+  overflow-x: auto;
 }
 
 .measures-table table {
@@ -8,6 +8,7 @@
   width: 100%;
   font-size: 15px;
   border-collapse: collapse;
+  overflow-x: scroll !important;
 }
 
 .measures-table table tr {

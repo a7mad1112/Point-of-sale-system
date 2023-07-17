@@ -1,0 +1,8 @@
+- fix logout button                                                      => 
+1- enhance redux toolkit and state management                            => 
+2- enhance types                                                         => 
+3- move API's to separated file                                          => 
+4- use useCallback instead of regular callbacks                          => 
+5- use useMemo to memorize                                               => 
+6- enhance the design(giving better ux)                                  => 
+7- make the code more readable and add comment to explain some ideas     => 

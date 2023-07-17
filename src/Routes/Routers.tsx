@@ -27,7 +27,6 @@ import {
   Products as ProductsType,
 } from "../types/types";
 import Products from "../pages/Products/Products";
-import Login from "../pages/Login/Login";
 import SectionHeading from "../pages/Components/SectionHeading/SectionHeading";
 export const Routers = () => {
   // fetch data[categories, measures, products]
@@ -103,6 +102,7 @@ export const Routers = () => {
       </div>
     );
 
+  // function to use in helmet for title
   const getTitle = () => {
     switch (location.pathname) {
       case "/":
@@ -111,7 +111,7 @@ export const Routers = () => {
         return "Cart";
       case "/categories":
         return "Categories";
-      case "/measure":
+      case "/measures":
         return "Measure";
       case "/products":
         return "Products";
@@ -182,7 +182,7 @@ export const Routers = () => {
         <Route path="/" element={<Home />} />
         <Route path="/cart/:id" element={<ValidCartPage />} />
         <Route path="/categories" element={<Categories />} />
-        <Route path="/measure" element={<Measure />} />
+        <Route path="/measures" element={<Measure />} />
         <Route path="/products" element={<Products />} />
         <Route path="/products/:id" element={<ValidProductPage />} />
         <Route path="*" element={<SectionHeading position="center" text="404 Not Found" />} />
