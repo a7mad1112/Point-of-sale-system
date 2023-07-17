@@ -1,0 +1,29 @@
+{
+  "kind": "collectionType",
+  "collectionName": "unit_of_measures1",
+  "info": {
+    "singularName": "unit-of-measures",
+    "pluralName": "unit-of-measures1",
+    "displayName": "unit_of_measures",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "base_unit": {
+      "type": "string",
+      "required": true
+    },
+    "Conversion_factor": {
+      "type": "decimal",
+      "required": true,
+      "default": 1
+    }
+  }
+}

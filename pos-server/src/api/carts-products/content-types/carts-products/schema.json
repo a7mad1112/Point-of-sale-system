@@ -1,0 +1,31 @@
+{
+  "kind": "collectionType",
+  "collectionName": "carts_products1",
+  "info": {
+    "singularName": "carts-products",
+    "pluralName": "carts-products1",
+    "displayName": "carts_products",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "quantity": {
+      "type": "integer",
+      "default": 1,
+      "min": 1
+    },
+    "cart": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::carts.carts"
+    },
+    "product": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::products.products"
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "kind": "collectionType",
+  "collectionName": "carts1",
+  "info": {
+    "singularName": "carts",
+    "pluralName": "carts1",
+    "displayName": "carts",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "desc": {
+      "type": "string"
+    },
+    "completed": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}
