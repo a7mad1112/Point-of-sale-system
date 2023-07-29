@@ -5,9 +5,27 @@ import { Button } from "@mui/material";
 import productsImg from "../../assets/products-img.png";
 import ProductsList from "./ProductsList/ProductsList";
 import CreateProductModal from "./CreateProductModal/CreateProductModal";
+import { useSelector } from "react-redux";
+import Loader from "../Components/Loader/Loader";
+import useFetchCategories from "../../hooks/useFetchCategories";
+import useFetchMeasures from "../../hooks/useFetchMeasures";
+import useFetchProducts from "../../hooks/useFetchProducts";
 function Products() {
   const [showCreateModal, setShowCreateModal] = useState(false);
-
+  // fetch products
+  useFetchProducts();
+  // fetch categories and measures if not fetched
+  useFetchCategories();
+  useFetchMeasures();
+  const isLoading: Boolean = useSelector(
+    (state: any) => state.isLoading.isLoading
+  );
+  const spinner = (
+    <div className="loading-container">
+      <Loader />
+    </div>
+  );
+  if (isLoading) return spinner;
   return (
     <>
       <section>

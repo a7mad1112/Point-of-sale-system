@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { isLoadingActions } from "../store/states/loaderSlice";
 
 type FetchState<T> = {
   data: {
@@ -20,10 +22,11 @@ const useFetch = <T>(url: string): UseFetchResult<T> => {
     loading: true,
     error: null,
   });
-
+  const dispatch = useDispatch();
   useEffect(() => {
     const fetchData = async () => {
       try {
+        dispatch(isLoadingActions.setIsLoading(true));
         const res = await fetch(url);
         if (!res.ok) {
           throw new Error(res.statusText);
@@ -42,11 +45,13 @@ const useFetch = <T>(url: string): UseFetchResult<T> => {
           loading: false,
           error: (error as Error).message || "Error fetching data",
         });
+      } finally {
+        dispatch(isLoadingActions.setIsLoading(false));
       }
     };
 
     fetchData();
-  }, [url]);
+  }, [url, dispatch]);
 
   return { response };
 };

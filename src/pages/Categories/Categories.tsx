@@ -1,18 +1,38 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import SectionHeading from "../Components/SectionHeading/SectionHeading";
 import { Box, Button } from "@mui/material";
 import categoriesImg from "../../assets/ProductCategoryDiagram.png";
 import "./categories.css";
 import CreateCategoryModal from "./components/CreateCategoryModal/CreateCategoryModal";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { CategoriesType } from "../../types/types";
 import CatCard from "./components/CatCard/CatCard";
+import useFetch from "../../hooks/useFetch";
+import { categoryActions } from "../../store/states/categoriesSlice";
+import Loader from "../Components/Loader/Loader";
 const Categories = () => {
   const [showCreateModal, setShowCreateModal] = useState(false);
   const categories: CategoriesType = useSelector(
     (state: any) => state.categories.categories
   );
-
+  const dispatch = useDispatch();
+  // fetch categories
+  const { response: categoriesRes } = useFetch(
+    "http://localhost:1337/api/categories1?pagination[limit]=-1"
+  );
+  useEffect(() => {
+    dispatch(categoryActions.setCategories(categoriesRes.data.data));
+  }, [categoriesRes, dispatch]);
+  // if loading, show spinner
+  const isLoading: Boolean = useSelector(
+    (state: any) => state.isLoading.isLoading
+  );
+  const spinner = (
+    <div className="loading-container">
+      <Loader />
+    </div>
+  );
+  if (isLoading) return spinner;
 
   return (
     <>

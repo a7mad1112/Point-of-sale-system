@@ -11,7 +11,17 @@ import CreateCartModal from "./Components/CreateCartModal/CreateCartModal";
 import ProductCard from "./Components/ProductCard/ProductCard";
 import AddToCartModal from "./Components/AddToCartModal/AddToCartModal";
 import "./home.css";
+import useFetchProducts from "../../hooks/useFetchProducts";
+import useFetchCategories from "../../hooks/useFetchCategories";
+import useFetchMeasures from "../../hooks/useFetchMeasures";
+import useFetchCarts from "../../hooks/useFetchCarts";
+import Loader from "../Components/Loader/Loader";
 function Home() {
+  useFetchCarts();
+  // fetch categories, products and measures if not fetched
+  useFetchProducts();
+  useFetchCategories();
+  useFetchMeasures();
   const carts: CartsType = useSelector((state: any) => state.carts.carts);
   const products: Products = useSelector(
     (state: any) => state.products.products
@@ -67,6 +77,17 @@ function Home() {
   const changePage = ({ selected }: any) => {
     setPageNumber(selected);
   };
+  
+  // loading
+  const isLoading: Boolean = useSelector(
+    (state: any) => state.isLoading.isLoading
+  );
+  const spinner = (
+    <div className="loading-container">
+      <Loader />
+    </div>
+  );
+  if (isLoading) return spinner;
   return (
     <>
       <section>

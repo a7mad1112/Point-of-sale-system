@@ -2,8 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 import { MeasuresType } from "../../types/types";
 
 
-const initialState: { measures: MeasuresType } = {
-  measures: [],
+const initialState: { measures: MeasuresType | null } = {
+  measures: null,
 };
 
 const measuresSlice = createSlice({

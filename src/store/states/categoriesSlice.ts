@@ -2,8 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 import { CategoriesType } from "../../types/types";
 
 
-const initialState: { categories: CategoriesType } = {
-  categories: [],
+const initialState: { categories: CategoriesType | null} = {
+  categories: null,
 };
 
 const categoriesSlice = createSlice({

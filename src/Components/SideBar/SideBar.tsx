@@ -22,6 +22,8 @@ import { FiShoppingBag, FiShoppingCart } from "react-icons/fi";
 import { FiDollarSign } from "react-icons/fi";
 import { useLocation } from "react-router-dom";
 import { BiLogOut } from "react-icons/bi";
+import Loader from "../../pages/Components/Loader/Loader";
+import { useSelector } from "react-redux";
 const drawerWidth = 240;
 
 const openedMixin = (theme: Theme): CSSObject => ({
@@ -31,7 +33,6 @@ const openedMixin = (theme: Theme): CSSObject => ({
     duration: theme.transitions.duration.enteringScreen,
   }),
   overflowX: "hidden",
-  
 });
 
 const closedMixin = (theme: Theme): CSSObject => ({
@@ -110,6 +111,8 @@ export default function SideBar({ children }: SideBarProps) {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+
   // list of pages links
   const links = [
     {

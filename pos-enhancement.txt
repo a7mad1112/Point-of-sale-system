@@ -8,7 +8,6 @@
 7- make the code more readable and add comment to explain some ideas     => 
 ---------------
 
-- enhance custom hooks
 - show is loading when send [delete, put, post] requests
 - make the table generic component
 - move API requests from routers to pages

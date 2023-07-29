@@ -6,6 +6,7 @@ import ProductsTable from "./Components/ProductsTable/ProductsTable";
 import { Box, Button } from "@mui/material";
 import usePut from "../../hooks/usePut";
 import { cartsActions } from "../../store/states/cartSlice";
+import { isLoadingActions } from "../../store/states/loaderSlice";
 import "./cart.css";
 const Cart = () => {
   const { id }: Readonly<Params<string>> = useParams();
@@ -43,22 +44,26 @@ const Cart = () => {
       throw new Error("Failed to post data");
     }
   };
-  const cartProducts: CartProduct[] = useSelector(
-    (state: any) => state.cartProducts.cartProducts
-  );
-
-  // find carts belong to the actual cart
   const [matchingCarts, setMatchingCarts] = useState<CartProduct[]>([]);
   useEffect(() => {
+    const fetchCart = async () => {
+      try {
+        dispatch(isLoadingActions.setIsLoading(true));
+        const res = await fetch(
+          "http://localhost:1337/api/carts-products1?pagination[limit]=-1&cart[id]=25&populate=*"
+        );
+        const { data } = await res.json();
+        setMatchingCarts(data);
+      } catch (err) {
+        throw new Error("failed to fetch cart");
+      } finally {
+        dispatch(isLoadingActions.setIsLoading(false));
+      }
+    };
     if (id) {
-      const newCarts = cartProducts?.filter((cartProd) => {
-        const cartData = cartProd?.attributes.cart?.data;
-        return cartData && cartData.id === +id;
-      });
-
-      setMatchingCarts(newCarts || []);
+      fetchCart();
     }
-  }, [cartProducts, id]);
+  }, [id, dispatch]);
   // handle discount and tax
   const [discount, setDiscount] = useState(0);
   const handleDiscount = (event: React.ChangeEvent<HTMLInputElement>): void => {

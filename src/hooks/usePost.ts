@@ -1,11 +1,5 @@
 import { useState } from "react";
 
-type PostData = {
-  data: {
-    name: string;
-  };
-};
-
 type PostResponse = {
   data: {
     id: number;
