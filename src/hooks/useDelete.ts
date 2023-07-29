@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { isLoadingActions } from "../store/states/loaderSlice";
+import { useDispatch } from "react-redux";
 
 type DeleteResponse = {
   success: boolean;
@@ -9,10 +11,11 @@ const useDelete = (url: string) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [response, setResponse] = useState<DeleteResponse | null>(null);
-
+  const dispatch = useDispatch();
   const deleteData = async () => {
     setLoading(true);
     try {
+      dispatch(isLoadingActions.setIsLoading(true));
       const token = localStorage.getItem("token") || "";
       const res = await fetch(url, {
         method: "DELETE",
@@ -33,6 +36,7 @@ const useDelete = (url: string) => {
       setResponse(null);
     } finally {
       setLoading(false);
+      dispatch(isLoadingActions.setIsLoading(false));
     }
   };
 

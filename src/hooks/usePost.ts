@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { isLoadingActions } from "../store/states/loaderSlice";
 
 type PostResponse = {
   data: {
@@ -17,9 +19,10 @@ const usePost = (url: string) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [response, setResponse] = useState<PostResponse | null>(null);
-
+  const dispatch = useDispatch();
   const postData = async (data: any) => {
     try {
+      dispatch(isLoadingActions.setIsLoading(true));
       setLoading(true);
       setError(null);
       const token = localStorage.getItem("token") || "";
@@ -42,6 +45,7 @@ const usePost = (url: string) => {
       alert(error);
     } finally {
       setLoading(false);
+      dispatch(isLoadingActions.setIsLoading(false));
     }
   };
   return { loading, error, response, postData };

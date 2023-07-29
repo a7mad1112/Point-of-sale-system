@@ -8,7 +8,7 @@
 7- make the code more readable and add comment to explain some ideas     => 
 ---------------
 
-- show is loading when send [delete, put, post] requests
+- show is loading when send [delete, put, post] requests => Done
 - make the table generic component
-- move API requests from routers to pages
+- move API requests from routers to pages => Done
 - laze load
