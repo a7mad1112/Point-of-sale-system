@@ -5,12 +5,8 @@ import {
   Navigate,
   useParams,
 } from "react-router-dom";
-import Home from "../pages/Home/Home";
-import Cart from "../pages/Cart/Cart";
-import Categories from "../pages/Categories/Categories";
-import Measure from "../pages/Measure/Measure";
+import React from "react";
 import { useSelector } from "react-redux";
-import ProductPage from "../pages/Product/Product";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import {
   CartType,
@@ -18,8 +14,17 @@ import {
   Product,
   Products as ProductsType,
 } from "../types/types";
-import Products from "../pages/Products/Products";
 import SectionHeading from "../pages/Components/SectionHeading/SectionHeading";
+import Loader from "../pages/Components/Loader/Loader";
+const LazyMeasures = React.lazy(() => import("../pages/Measure/Measure"));
+const LazyProducts = React.lazy(() => import("../pages/Products/Products"));
+const LazyProductPage = React.lazy(() => import("../pages/Product/Product"));
+const LazyHome = React.lazy(() => import("../pages/Home/Home"));
+const LazyCart = React.lazy(() => import("../pages/Cart/Cart"));
+const LazyCategories = React.lazy(
+  () => import("../pages/Categories/Categories")
+);
+
 export const Routers = () => {
   const location = useLocation();
   const carts: CartsType = useSelector((state: any) => state.carts.carts);
@@ -74,7 +79,11 @@ export const Routers = () => {
       return <Navigate to="/products" replace />;
     }
 
-    return <ProductPage />;
+    return (
+      <React.Suspense>
+        <LazyProductPage />
+      </React.Suspense>
+    );
   };
 
   // component return cart page if id exist, otherwise go back
@@ -93,7 +102,11 @@ export const Routers = () => {
       return <Navigate to="/" replace />;
     }
 
-    return <Cart />;
+    return (
+      <React.Suspense>
+        <LazyCart />
+      </React.Suspense>
+    );
   };
 
   return (
@@ -103,11 +116,39 @@ export const Routers = () => {
         <title>{getTitle()}</title>
       </Helmet>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route
+          path="/"
+          element={
+            <React.Suspense>
+              <LazyHome />
+            </React.Suspense>
+          }
+        />
         <Route path="/cart/:id" element={<ValidCartPage />} />
-        <Route path="/categories" element={<Categories />} />
-        <Route path="/measures" element={<Measure />} />
-        <Route path="/products" element={<Products />} />
+        <Route
+          path="/categories"
+          element={
+            <React.Suspense>
+              <LazyCategories />
+            </React.Suspense>
+          }
+        />
+        <Route
+          path="/measures"
+          element={
+            <React.Suspense fallback={<Loader />}>
+              <LazyMeasures />
+            </React.Suspense>
+          }
+        />
+        <Route
+          path="/products"
+          element={
+            <React.Suspense>
+              <LazyProducts />
+            </React.Suspense>
+          }
+        />
         <Route path="/products/:id" element={<ValidProductPage />} />
         <Route
           path="*"
