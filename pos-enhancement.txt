@@ -1,4 +1,4 @@
-- fix logout button                                                      => 
+- fix logout button                                                      => Done
 1- enhance redux toolkit and state management                            => 
 2- enhance types                                                         => 
 3- move API's to separated file                                          => 
@@ -6,3 +6,10 @@
 5- use useMemo to memorize                                               => 
 6- enhance the design(giving better ux)                                  => 
 7- make the code more readable and add comment to explain some ideas     => 
+---------------
+
+- enhance custom hooks
+- show is loading when send [delete, put, post] requests
+- make the table generic component
+- move API requests from routers to pages
+- laze load

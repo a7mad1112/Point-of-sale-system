@@ -40,6 +40,7 @@ export const Routers = () => {
     if (measuresRes.data) {
       dispatch(measuresActions.setMeasures(measuresRes.data.data));
     }
+    
   }, [measuresRes, dispatch]);
 
   // fetch categories

@@ -11,6 +11,8 @@ const ProductsList = () => {
   const products: Products = useSelector(
     (state: any) => state.products.products
   );
+  const [productsToShow, setProductToShow] = useState(products);
+  const [searchTerm, setSearchTerm] = useState("");
   // for edit products modal
   const [showEditModal, setShowEditModal] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
@@ -40,9 +42,21 @@ const ProductsList = () => {
       throw new Error("Failed to post data");
     }
   };
+  const handleFilter = (e: any) => {
+    setSearchTerm((prev) => e.target.value?.trim());
+    const prods = products.filter((prod) => {
+      const productName = prod.attributes.name.toLowerCase();
+      return productName.includes(e.target.value?.trim().toLowerCase());
+    });
+    setProductToShow(prods);
+  };
   return (
     <div className="products-container">
-      {products?.map((product: Product) => (
+      <div>
+        <input type="text" value={searchTerm} onChange={handleFilter} />
+      </div>
+      <br />
+      {productsToShow?.map((product: Product) => (
         <ProductCard
           key={product.id}
           product={product}

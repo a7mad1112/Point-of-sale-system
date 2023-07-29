@@ -38,7 +38,7 @@ function Home() {
     setSelectedCategoryId(e.target.value);
   };
 
-  const filteredProducts = products.filter((product) => {
+  const filteredProducts = products?.filter((product) => {
     const productName = product.attributes.name.toLowerCase();
     let categoryMatch: boolean;
     if (
@@ -58,11 +58,11 @@ function Home() {
   const [pageNumber, setPageNumber] = useState(0);
   const productPerPage = 8;
   const visitedPage = pageNumber * productPerPage;
-  const productsToShow = filteredProducts.slice(
+  const productsToShow = filteredProducts?.slice(
     visitedPage,
     visitedPage + productPerPage
   );
-  const pageCount = Math.ceil(filteredProducts.length / productPerPage);
+  const pageCount = Math.ceil(filteredProducts?.length / productPerPage);
 
   const changePage = ({ selected }: any) => {
     setPageNumber(selected);
@@ -200,7 +200,7 @@ function Home() {
               }}
             />
           </Box>
-          {/* categories for filter */}
+          {/* categories for slice */}
           <Box flex={1} minWidth={300} margin="auto" p={2}>
             <select
               style={{ width: "100%", border: "1px solid #eee" }}
